@@ -1,0 +1,42 @@
+{
+  "name": "hrr43-mvp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "build:dev": "webpack --mode=development --watch",
+    "build": "npx webpack --mode=production",
+    "start:dev": "nodemon",
+    "start": "pm2 start server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoelWukusick/hrr43-mvp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoelWukusick/hrr43-mvp/issues"
+  },
+  "homepage": "https://github.com/JoelWukusick/hrr43-mvp#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/preset-react": "^7.8.3",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.6",
+    "nodemon": "^2.0.2",
+    "pm2": "^4.2.3",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "nodemonConfig": {
+    "ignore": ["src", "database","dist"]
+  }
+}
