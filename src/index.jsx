@@ -1,50 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { theme, Win, Header, Pad, Content, Column, Main } from './styles/App.js';
 import Matrix from './Matrix.jsx';
 import ColorPicker from './ColorPicker.jsx';
 
-const theme = {
-  color1: 'tan',
-  color2: 'black',
-  color3: 'teal',
-  backgroundColor1: 'white',
-  backgroundColor2: 'lightgray'
-}
 
-const Header = styled.div`
-  background-color: ${(props) => props.theme.color2};
-  color: white;
-  padding: 15px 30px;
-  font-size: 24pt;
-  font-family: Arial;
-`
-const Win = styled.div`
-  background-color: ${props => props.theme.backgroundColor1};
-`
-
-const Main = styled.div`
-  display: grid;
-  grid-template-columns: 25% 75%;
-  grid-gap: 2px;
-  background-color: tan;
-`
-const Column = styled.div`
-  background-color: ${props => props.theme.backgroundColor1};
-  padding: 15px;
-`
-
-const Pad = styled.div`
- background-color: ${props => props.theme.backgroundColor1};
- padding: 15px;
-`
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.n = 12;
+    this.handleDrag = this.handleDrag.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
     this.state = {
-      data: []
-    };
+      color: '#128278',
+      selected: this.generateColorData(this.n, false),
+      setting: {
+        name: null,
+        colors: this.generateColorData(this.n, null)
+      },
+      user: {
+        name: null,
+        settings: null
+      }
+    }
+  };
+
+  generateColorData(n, data) {
+    let out = [];
+    for (var i = 0; i < n * n; i++) {
+      out.push(data)
+    }
+    return out;
+  }
+
+  handleDrag(color, e) {
+    this.setState({ color: color.hex })
+  }
+
+  handleSelect(e, i) {
+    this.setState(state => {
+      let selected = state.selected;
+      selected[i] = !selected[i];
+      return { selected };
+    })
   }
 
   render() {
@@ -55,14 +55,21 @@ class App extends React.Component {
             ControlLED
           </Header>
           <Pad>
-            <Main>
+            <Content>
               <Column>
-                <ColorPicker/>
+                <Main>
+
+                  <ColorPicker handleDrag={this.handleDrag} color={this.state.color} />
+                  <div>
+                    {/* <setHeight></setHight> */}
+                    <Matrix n={this.n} handleSelect={this.handleSelect} selected={this.state.selected} />
+                  </div>
+
+                </Main>
               </Column>
               <Column>
-                <Matrix/>
               </Column>
-            </Main>
+            </Content>
           </Pad>
         </Win>
       </ThemeProvider>

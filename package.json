@@ -37,6 +37,7 @@
     "express": "^4.17.1",
     "pg": "^7.18.2",
     "react": "^16.13.0",
+    "react-color": "^2.18.0",
     "react-dom": "^16.13.0",
     "styled-components": "^5.0.1"
   },
