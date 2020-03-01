@@ -4,8 +4,10 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "build:dev": "webpack --mode=development --watch",
-    "build": "npx webpack --mode=production",
+    "build": "npm run webpack && npm run setup && npm run start",
+    "webpack:dev": "webpack --mode=development --watch",
+    "webpack": "npx webpack --mode=production",
+    "setup": "node database/dbSetup.js",
     "start:dev": "nodemon",
     "start": "pm2 start server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -33,10 +35,15 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "pg": "^7.18.2",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "styled-components": "^5.0.1"
   },
   "nodemonConfig": {
-    "ignore": ["src", "database","dist"]
+    "ignore": [
+      "src",
+      "dist"
+    ]
   }
 }
