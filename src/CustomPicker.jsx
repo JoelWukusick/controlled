@@ -26,12 +26,12 @@ const Apply = styled.button`
 
 const inputStyle = {
   wrap: {
-    width: '30%',
+    width: '100%',
     padding: '15px',
     paddingLeft: '0px',
   },
   input: {
-    width: '100%',
+    width: '50%',
     textAlign: 'left'
   },
   label: {
@@ -59,7 +59,7 @@ class MyColorPicker extends React.Component {
         <EditableInput
           style={inputStyle}
           value={this.props.color} />
-        <Apply>APPLY</Apply>
+        <Apply onClick={this.props.handleClick}>APPLY</Apply>
       </div>
     )
   }

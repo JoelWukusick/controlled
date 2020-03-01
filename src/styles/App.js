@@ -1,13 +1,13 @@
 import styled, { ThemeProvider } from 'styled-components';
 
 export const theme = {
-  color1: 'tan',
+  colorMedium: '#d5ccbe',
   colorDark: '#36383b',
   color3: 'teal',
-  backgroundColor1: '#f5f5f5',
+  backgroundColor1: '#f5f2ed',
   backgroundColor2: 'lightgray',
-  displayFont: 'Arial',
-  bodyFont: 'cursive'
+  displayFont: 'Roboto',
+  bodyFont: 'Arial'
 }
 
 
@@ -26,19 +26,20 @@ export const Pad = styled.div`
 `
 
 export const Header = styled.div`
-  font-weight: 100;
+  font-weight: 200;
   background-color: ${props => props.theme.colorDark};
+  -webkit-font-smoothing: antialiased;
   color: ${props => props.theme.backgroundColor1};
   padding: 8px 30px;
   font-size: 24pt;
-  font-family: Arial;
+  font-family: ${props => props.theme.displayFont};
 `
 
 export const Content = styled.div`
   display: grid;
   grid-template-columns: 88% 12%;
   grid-gap: 3px;
-  background-color: ${props => props.theme.color1};
+  background-color: ${props => props.theme.colorMedium};
 `
 
 export const Main = styled.div`

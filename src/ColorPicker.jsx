@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MyColorPicker from './CustomPicker.jsx'
+import SaveForm from './SaveForm.jsx';
 
 const Main = styled.div`
   display: 'inline-block';
@@ -9,19 +10,19 @@ const Main = styled.div`
   background-color: ${props => props.theme.backgroundColor1};
 `
 
-const SaturationContainer = styled.div`
-  position: relative;
-  width: 100%;
-  padding-top:65%;
-`
 
 
-function ColorPicker({ handleDrag, color }) {
+function ColorPicker({ handleClick, handleDrag, handleChange, HandleSubmit, color }) {
   return (
     <Main>
       <MyColorPicker
+        handleClick={handleClick}
         onChange={handleDrag}
         color={color}
+      />
+      <SaveForm
+        handleChange={handleChange}
+        HandleSubmit={HandleSubmit}
       />
     </Main>
   )

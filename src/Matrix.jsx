@@ -13,12 +13,8 @@ const Main = styled.div`
   border-radius: 7px;
 `
 
-function Matrix({ n, theme, handleSelect, selected }) {
+function Matrix({ n, theme, handleSelect, selected, colors }) {
 
-  let colors = [];
-  for (var i = 0; i < n * n; i++) {
-    colors.push(i);
-  }
 
   return (
     <Main n={n} theme={theme}>
