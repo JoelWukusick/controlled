@@ -7,7 +7,7 @@ const DesignNameLabel = styled.label`
   width: 100%;
 `
 
-function SaveForm({ handleChange, handleSubmit, theme}) {
+function SaveForm({ handleChange, handleSubmit, theme, settingName }) {
   return (
     <form onSubmit={handleSubmit}>
       <DesignNameLabel theme={theme}>

@@ -35,11 +35,20 @@ client
     return controlLEDClient.query(
       `CREATE TABLE users (
         id SERIAL NOT NULL PRIMARY KEY ,
-        data JSON NOT NULL
+        name JSON NOT NULL
     )`);
   })
   .then(() => {
     console.log('table \'users\' created');
+    return controlLEDClient.query(
+      `CREATE TABLE designs (
+        id SERIAL NOT NULL PRIMARY KEY ,
+        name TEXT NOT NULL,
+        colors TEXT []
+    )`);
+  })
+  .then(() => {
+    console.log('table \'designs\' created');
     return controlLEDClient.end();
   })
   .catch((err) => console.log(err));

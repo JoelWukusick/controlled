@@ -5,6 +5,7 @@ import { theme, Win, Header, Pad, Content, Column, Main } from './styles/App.js'
 import Matrix from './Matrix.jsx';
 import ColorPicker from './ColorPicker.jsx';
 import SaveForm from './SaveForm.jsx';
+import SavedDesigns from './SavedDesigns.jsx';
 const axios = require('axios').default;
 
 
@@ -18,6 +19,7 @@ class App extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.getDesigns = this.getDesigns.bind(this);
     this.state = {
       color: '#128278',
       selected: this.generateColorData(this.n, false),
@@ -28,7 +30,8 @@ class App extends React.Component {
       user: {
         name: null,
         settings: null
-      }
+      },
+      savedDesigns: []
     }
   };
 
@@ -71,10 +74,22 @@ class App extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let user = this.state.user.name + '/' ;
-    console.log(user);
-    axios.post('/api/' + user + this.state.setting.name)
+    let user = '/' + this.state.user.name;
+    axios.post('/api' + user, this.state.setting)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
 
+  getDesigns() {
+    let user = '/' + this.state.user.name;
+    return (axios('/api' + user))
+
+  }
+
+  componentDidMount() {
+    this.getDesigns()
+      .then(res => this.setState({ savedDesigns: res.data }))
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -94,7 +109,8 @@ class App extends React.Component {
                     handleClick={this.handleClick}
                     color={this.state.color}
                     handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit} />
+                    handleSubmit={this.handleSubmit}
+                    settingName={this.state.setting.name} />
                   <div>
                     {/* <setHeight></setHight> */}
                     <Matrix
@@ -108,6 +124,7 @@ class App extends React.Component {
                 </Main>
               </Column>
               <Column>
+                <SavedDesigns />
               </Column>
             </Content>
           </Pad>

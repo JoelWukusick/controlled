@@ -12,7 +12,7 @@ const Main = styled.div`
 
 
 
-function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, color }) {
+function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, color, settingName }) {
   return (
     <Main>
       <MyColorPicker
@@ -21,6 +21,7 @@ function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, colo
         color={color}
       />
       <SaveForm
+        settingName={settingName}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />

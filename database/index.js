@@ -10,9 +10,15 @@ client.connect()
   .catch(err => console.log(err));
 
 module.exports = {
-  getUserDesigns: function (user) {
-    client.query('SELECT $1::text as message', ['write the getUserPresets function!!'])
-      .then(res => console.log(res.rows[0].message))
-      .catch(err => err.stack);
+  getUserPresets: function () {
+    return (client.query('SELECT * FROM designs ORDER BY id DESC LIMIT 10'));
+
+    // }
+  },
+  insertDesign: function (user, data) {
+    console.log(user);
+    return (
+      client.query('INSERT INTO designs (name, colors) VALUES ($1, $2)', [data.name, data.colors])
+    )
   }
 }
