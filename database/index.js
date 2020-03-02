@@ -10,7 +10,7 @@ client.connect()
   .catch(err => console.log(err));
 
 module.exports = {
-  getUserPresets: function (user) {
+  getUserDesigns: function (user) {
     client.query('SELECT $1::text as message', ['write the getUserPresets function!!'])
       .then(res => console.log(res.rows[0].message))
       .catch(err => err.stack);

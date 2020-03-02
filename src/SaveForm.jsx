@@ -1,15 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 
+const DesignNameLabel = styled.label`
+  font-family: ${props => props.theme.displayFont};
+  font-weight: 300;
+  width: 100%;
+`
 
-
-function SaveForm({ handleChange, handleSubmit }) {
+function SaveForm({ handleChange, handleSubmit, theme}) {
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Design Name
+      <DesignNameLabel theme={theme}>
+        DESIGN NAME
+      </DesignNameLabel>
       <input type="text" onChange={handleChange} />
-      </label>
-      <input type="submit" value="Submit" />
+      <input type="submit" value="SAVE" />
     </form>
   )
 }

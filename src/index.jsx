@@ -5,6 +5,7 @@ import { theme, Win, Header, Pad, Content, Column, Main } from './styles/App.js'
 import Matrix from './Matrix.jsx';
 import ColorPicker from './ColorPicker.jsx';
 import SaveForm from './SaveForm.jsx';
+const axios = require('axios').default;
 
 
 
@@ -46,7 +47,6 @@ class App extends React.Component {
   handleClick(e) {
     this.setState(state => {
       let newColors = this.state.setting.colors.map((value, i) => {
-        console.log(value);
         return this.state.selected[i] ? this.state.color : value;
       })
       return { setting: { colors: newColors }, selected: this.generateColorData(this.n, false) };
@@ -63,11 +63,18 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value)
+    let name = e.target.value;
+    this.setState(state => {
+      return ({ setting: { name, colors: state.setting.colors } })
+    })
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    let user = this.state.user.name + '/' ;
+    console.log(user);
+    axios.post('/api/' + user + this.state.setting.name)
+
   }
 
   render() {
