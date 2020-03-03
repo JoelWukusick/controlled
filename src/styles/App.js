@@ -5,7 +5,7 @@ export const theme = {
   colorDark: '#36383b',
   color3: 'teal',
   backgroundColor1: '#f5f2ed',
-  backgroundColor2: 'lightgray',
+  backgroundColor2: '#E1E1E1',
   displayFont: 'Roboto',
   bodyFont: 'Arial'
 }

@@ -6,21 +6,23 @@ const Main = styled.div`
   margin: 0% 10%;
   display: grid;
   grid-template-columns: repeat(12, auto);
-  grid-template-rows: repeat(12, auto);
-  grid-gap: 5px 5px;
-  padding: 20px;
-  background-color: ${props => props.theme.backgroundColor2};
+  grid-template-rows: repeat(${props => props.n}, auto);
+  grid-gap: ${props => { return (props.thumbnail ? '1px' : '4px 4px') }};
+  padding: 0px;
+  background-color: ${props => props.theme.backgroundColor1};
   border-radius: 7px;
+  box-sizing: border-box;
 `
 
-function Matrix({ n, theme, handleSelect, selected, colors }) {
+function Matrix({ n, theme, handleSelect, selected, colors, thumbnail }) {
 
 
   return (
-    <Main n={n} theme={theme}>
+    <Main n={n} theme={theme} thumbnail={thumbnail}>
       {colors.map((color, i) => {
         return (
           <Led
+            thumbnail={thumbnail}
             key={i.toString()}
             i={i}
             color={color}

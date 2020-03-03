@@ -20,6 +20,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getDesigns = this.getDesigns.bind(this);
+    this.emptySelectedSet = this.generateColorData(this.n, false);
     this.state = {
       color: '#128278',
       selected: this.generateColorData(this.n, false),
@@ -114,6 +115,7 @@ class App extends React.Component {
                   <div>
                     {/* <setHeight></setHight> */}
                     <Matrix
+                      thumbnail={false}
                       n={this.n}
                       handleSelect={this.handleSelect}
                       selected={this.state.selected}
@@ -124,7 +126,10 @@ class App extends React.Component {
                 </Main>
               </Column>
               <Column>
-                <SavedDesigns />
+                <SavedDesigns
+                  n={this.n}
+                  designs={this.state.savedDesigns}
+                  selected={this.emptySelectedSet} />
               </Column>
             </Content>
           </Pad>
