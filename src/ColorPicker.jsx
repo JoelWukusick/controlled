@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import MyColorPicker from './CustomPicker.jsx'
+import MyColorPicker from './MyColorPicker.jsx'
 import SaveForm from './SaveForm.jsx';
+import horizontalFade from './fadeFunctions/horizontalFade.js';
 
 const Main = styled.div`
   display: 'inline-block';
@@ -9,10 +10,12 @@ const Main = styled.div`
   padding-left: 0px;
   background-color: ${props => props.theme.backgroundColor1};
 `
+const Fade = styled.button`
+
+`
 
 
-
-function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, color, settingName }) {
+function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, handleFade, color, settingName }) {
   return (
     <Main>
       <MyColorPicker
@@ -25,6 +28,7 @@ function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, colo
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
+      <Fade onClick={() => { handleFade(horizontalFade) }}>HORIZONTAL FADE</Fade>
     </Main>
   )
 }

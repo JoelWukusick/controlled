@@ -10,9 +10,8 @@ API.get('/:user', (req, res) => {
     .catch(err => console.log(err));
 });
 API.post('/:user', (req, res) => {
-  console.log('post')
   db.insertDesign(req.params.user, req.body)
-    .then(result => console.log(result))
+    .then(result => {res.send(result)})
     .catch(err => res.send(err))
 })
 

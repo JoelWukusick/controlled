@@ -26,6 +26,7 @@ function Matrix({ n, theme, handleSelect, selected, colors, thumbnail }) {
             key={i.toString()}
             i={i}
             color={color}
+            // handleSelect={thumbnail ? null : handleSelect}
             handleSelect={handleSelect}
             selected={selected} />
         )

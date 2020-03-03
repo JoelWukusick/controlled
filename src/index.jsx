@@ -21,9 +21,11 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.getDesigns = this.getDesigns.bind(this);
     this.emptySelectedSet = this.generateColorData(this.n, false);
+    this.handleSelectSaved = this.handleSelectSaved.bind(this);
+    this.handleFade = this.handleFade.bind(this);
     this.state = {
-      color: '#128278',
-      selected: this.generateColorData(this.n, false),
+      color: '#337475',
+      selected: this.emptySelectedSet,
       setting: {
         name: null,
         colors: this.generateColorData(this.n, null)
@@ -77,14 +79,39 @@ class App extends React.Component {
     e.preventDefault();
     let user = '/' + this.state.user.name;
     axios.post('/api' + user, this.state.setting)
-      .then(res => console.log(res))
+      .then(() => {
+        return (this.getDesigns())
+      })
+      .then(res => {
+        console.log(res)
+        this.setState({ savedDesigns: res.data })
+      })
       .catch(err => console.log(err));
+  }
+
+  handleSelectSaved(e, design) {
+    let setting = { name: design.name, colors: design.colors }
+    this.setState({
+      setting
+    })
+  }
+
+  handleFade(fadeFunction) {
+    console.log('handle fade')
+    let newColors = fadeFunction(this.state.setting.colors);
+    console.log(newColors);
+
+    this.setState({
+      setting: {
+        name: null,
+        colors: newColors
+      }
+    })
   }
 
   getDesigns() {
     let user = '/' + this.state.user.name;
     return (axios('/api' + user))
-
   }
 
   componentDidMount() {
@@ -106,22 +133,21 @@ class App extends React.Component {
                 <Main>
 
                   <ColorPicker
+                    color={this.state.color}
                     handleDrag={this.handleDrag}
                     handleClick={this.handleClick}
-                    color={this.state.color}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
+                    handleFade={this.handleFade}
                     settingName={this.state.setting.name} />
-                  <div>
-                    {/* <setHeight></setHight> */}
-                    <Matrix
-                      thumbnail={false}
-                      n={this.n}
-                      handleSelect={this.handleSelect}
-                      selected={this.state.selected}
-                      handleClick={this.handleClick}
-                      colors={this.state.setting.colors} />
-                  </div>
+                  {/* <setHeight></setHight> */}
+                  <Matrix
+                    thumbnail={false}
+                    n={this.n}
+                    handleSelect={this.handleSelect}
+                    selected={this.state.selected}
+                    handleClick={this.handleClick}
+                    colors={this.state.setting.colors} />
 
                 </Main>
               </Column>
@@ -129,7 +155,8 @@ class App extends React.Component {
                 <SavedDesigns
                   n={this.n}
                   designs={this.state.savedDesigns}
-                  selected={this.emptySelectedSet} />
+                  selected={this.emptySelectedSet}
+                  handleSelectSaved={this.handleSelectSaved} />
               </Column>
             </Content>
           </Pad>

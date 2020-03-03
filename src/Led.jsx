@@ -18,7 +18,6 @@ const Box = styled.div`
 
 function Led({ selected, theme, i, color, handleSelect, thumbnail }) {
 
-
   return (
     <Box
       thumbnail={thumbnail}

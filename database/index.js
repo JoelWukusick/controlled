@@ -11,12 +11,11 @@ client.connect()
 
 module.exports = {
   getUserPresets: function () {
-    return (client.query('SELECT * FROM designs ORDER BY id DESC LIMIT 10'));
+    return (client.query('SELECT * FROM designs ORDER BY id DESC LIMIT 7'));
 
     // }
   },
   insertDesign: function (user, data) {
-    console.log(user);
     return (
       client.query('INSERT INTO designs (name, colors) VALUES ($1, $2)', [data.name, data.colors])
     )

@@ -2,20 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 
 const DesignNameLabel = styled.label`
+  padding-right: 10px;
   font-family: ${props => props.theme.displayFont};
   font-weight: 300;
   width: 100%;
 `
 
+const FormContainer = styled.div`
+  padding: 15px 0px;
+`
+
 function SaveForm({ handleChange, handleSubmit, theme, settingName }) {
   return (
-    <form onSubmit={handleSubmit}>
-      <DesignNameLabel theme={theme}>
-        DESIGN NAME
+    <FormContainer>
+      <form onSubmit={handleSubmit}>
+        <DesignNameLabel theme={theme}>
+          DESIGN NAME
       </DesignNameLabel>
-      <input type="text" onChange={handleChange} />
-      <input type="submit" value="SAVE" />
-    </form>
+        <input type="text" onChange={handleChange} />
+        <input type="submit" value="SAVE" />
+      </form>
+    </FormContainer>
   )
 }
 

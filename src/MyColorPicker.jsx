@@ -17,11 +17,18 @@ const HueContainer = styled.div`
 `
 
 const Apply = styled.button`
-  text-align: 'center';
   position: relative;
   width: 30%;
   padding: '15px'
   padding-right: '0px';
+
+`
+
+const ColorBlock = styled.div`
+  margin-top: 15px;
+  width: 30%;
+  height: 80px;
+  background-color:${props => props.color} ;
 `
 
 const inputStyle = {
@@ -31,7 +38,7 @@ const inputStyle = {
     paddingLeft: '0px',
   },
   input: {
-    width: '50%',
+    width: '30%',
     textAlign: 'left'
   },
   label: {
@@ -56,6 +63,7 @@ class MyColorPicker extends React.Component {
             onChange={this.props.onChange}
             direction={'horizontal'} />
         </HueContainer>
+        <ColorBlock color={this.props.color} />
         <EditableInput
           style={inputStyle}
           value={this.props.color} />
