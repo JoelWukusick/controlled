@@ -5,9 +5,9 @@ import Led from './Led.jsx';
 const Main = styled.div`
   margin: 0% 10%;
   display: grid;
-  grid-template-columns: repeat(12, auto);
+  grid-template-columns: repeat(${props => props.n}, auto);
   grid-template-rows: repeat(${props => props.n}, auto);
-  grid-gap: ${props => { return (props.thumbnail ? '1px' : '4px 4px') }};
+  grid-gap: ${props => { return (props.thumbnail ? '0px' : '2px') }};
   padding: 0px;
   background-color: ${props => props.theme.backgroundColor1};
   border-radius: 7px;

@@ -10,6 +10,7 @@
     "setup": "node database/dbSetup.js",
     "start:dev": "nodemon",
     "start": "pm2 start server/index.js",
+    "stop": "pm2 stop server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,7 +30,6 @@
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.6",
     "nodemon": "^2.0.2",
-    "pm2": "^4.2.3",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   },
@@ -38,6 +38,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "pg": "^7.18.2",
+    "pm2": "^4.2.3",
     "react": "^16.13.0",
     "react-color": "^2.18.0",
     "react-dom": "^16.13.0",
@@ -46,7 +47,9 @@
   "nodemonConfig": {
     "ignore": [
       "src",
-      "dist"
+      "dist",
+      "node_modules",
+      ".vscode"
     ]
   }
 }
