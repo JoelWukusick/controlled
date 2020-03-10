@@ -140,7 +140,6 @@ class App extends React.Component {
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
                     settingName={this.state.setting.name} />
-                  {/* <setHeight></setHight> */}
                   <Matrix
                     thumbnail={false}
                     n={this.n}

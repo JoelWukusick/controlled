@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { CustomPicker } from 'react-color';
 var { EditableInput, Saturation, Hue } = require('react-color/lib/components/common');
 
+const PickerContainer = styled.div`
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-gap: 3px;
+  background-color: ${props => props.theme.backgroundColor1};
+`
+
 const SaturationContainer = styled.div`
   position: relative;
   width: 100%;
@@ -51,7 +58,7 @@ const inputStyle = {
 class MyColorPicker extends React.Component {
   render() {
     return (
-      <div>
+        <PickerContainer>
         <SaturationContainer>
           <Saturation
             {...this.props}
@@ -68,7 +75,7 @@ class MyColorPicker extends React.Component {
           style={inputStyle}
           value={this.props.color} />
         <Apply onClick={this.props.handleClick}>APPLY</Apply>
-      </div>
+        </PickerContainer>
     )
   }
 }
