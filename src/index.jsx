@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme, Win, Header, Pad, Content, Column, Main } from './styles/App.js';
 import Matrix from './Matrix.jsx';
-import ColorPicker from './ColorPicker.jsx';
+import ControlPanel from './ControlPanel.jsx';
 import SaveForm from './SaveForm.jsx';
 import SavedDesigns from './SavedDesigns.jsx';
 const axios = require('axios').default;
@@ -132,7 +132,7 @@ class App extends React.Component {
               <Column>
                 <Main>
 
-                  <ColorPicker
+                  <ControlPanel
                     color={this.state.color}
                     handleDrag={this.handleDrag}
                     handleClick={this.handleClick}

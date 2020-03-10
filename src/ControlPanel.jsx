@@ -15,7 +15,7 @@ const Fade = styled.button`
 `
 
 
-function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, handleFade, color, settingName }) {
+function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, handleFade, color, settingName }) {
   return (
     <Main>
       <MyColorPicker
@@ -33,4 +33,4 @@ function ColorPicker({ handleClick, handleDrag, handleChange, handleSubmit, hand
   )
 }
 
-export default ColorPicker;
+export default ControlPanel;
