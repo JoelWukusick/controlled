@@ -28,7 +28,7 @@ class App extends React.Component {
       selected: this.emptySelectedSet,
       setting: {
         name: null,
-        colors: this.generateColorData(this.n, null)
+        colors: this.generateColorData(this.n, '#ffffff')
       },
       user: {
         name: null,
@@ -47,6 +47,7 @@ class App extends React.Component {
   }
 
   handleDrag(color, e) {
+    if(!color){console.log(e.target.value);}
     this.setState({ color: color.hex })
   }
 
@@ -83,7 +84,6 @@ class App extends React.Component {
         return (this.getDesigns())
       })
       .then(res => {
-        console.log(res)
         this.setState({ savedDesigns: res.data })
       })
       .catch(err => console.log(err));
@@ -97,10 +97,7 @@ class App extends React.Component {
   }
 
   handleFade(fadeFunction) {
-    console.log('handle fade')
     let newColors = fadeFunction(this.state.setting.colors);
-    console.log(newColors);
-
     this.setState({
       setting: {
         name: null,
@@ -139,7 +136,8 @@ class App extends React.Component {
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
-                    settingName={this.state.setting.name} />
+                    settingName={this.state.setting.name}
+                    theme={theme}/>
                   <Matrix
                     thumbnail={false}
                     n={this.n}

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import MyColorPicker from './MyColorPicker.jsx'
+import ColorPicker from './ColorPicker.jsx'
 import SaveForm from './SaveForm.jsx';
-import horizontalFade from './fadeFunctions/horizontalFade.js';
+import horizontalFade from './colorFunctions/horizontalFade.js';
 
 const Main = styled.div`
   display: 'inline-block';
@@ -11,17 +11,17 @@ const Main = styled.div`
   background-color: ${props => props.theme.backgroundColor1};
 `
 const Fade = styled.button`
-
 `
 
 
-function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, handleFade, color, settingName }) {
+function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, handleFade, color, settingName, theme }) {
   return (
     <Main>
-      <MyColorPicker
+      <ColorPicker
         handleClick={handleClick}
         onChange={handleDrag}
         color={color}
+        theme={theme}
       />
       <SaveForm
         settingName={settingName}
