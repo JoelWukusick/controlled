@@ -50,7 +50,8 @@ const HueContainer = styled.div`
 const Apply = styled.button`
   position: relative;
   width: 100%;
-  padding: '15px 2%';
+  margin-top: 4%;
+  padding: '15px ';
   padding-right: '0px';
   text-align: center;
   font-family: ${props => props.theme.displayFont};

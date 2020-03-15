@@ -25,7 +25,8 @@ function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, han
       />
       <FadeControls
         handleFade={handleFade}
-        balanced={balanced} />
+        balanced={balanced}
+        handleChange={handleChange}/>
       <SaveForm
         settingName={settingName}
         handleChange={handleChange}

@@ -9,13 +9,14 @@ const FadeControlsContainer = styled.div`
 const Fade = styled.button`
 `
 
-function FadeControls({ handleFade, balanced }) {
+function FadeControls({ handleFade, balanced, handleChange }) {
+  console.log(balanced);
   return (
     <FadeControlsContainer>
       <p>FADE OPTIONS</p>
-      <input type="checkbox" id="male" name="gender" value="male" />
-      <label htmlFor="male">BALANCED</label>
-      <Fade onClick={() => { handleFade(horizontalFade, balanced) }}>FADE</Fade>
+      <input onChange={handleChange} type="checkbox" name='balanced'/>
+      <label>BALANCED</label>
+      <Fade onClick={() => { handleFade(horizontalFade) }}>FADE</Fade>
     </FadeControlsContainer>
   )
 }

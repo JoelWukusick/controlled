@@ -27,8 +27,9 @@ class App extends React.Component {
     this.state = {
       color: '#337475',
       selected: this.emptySelectedSet,
-      balanced: true,
       setting: {
+        balanced: false,
+        fade: '^',
         name: null,
         colors: this.generateColorData(this.n, '#ffffff')
       },
@@ -55,10 +56,12 @@ class App extends React.Component {
 
   handleClick(e) {
     this.setState(state => {
-      let newColors = this.state.setting.colors.map((value, i) => {
-        return this.state.selected[i] ? this.state.color : value;
+      let newColors = state.setting.colors.map((value, i) => {
+        return state.selected[i] ? this.state.color : value;
       })
-      return { setting: { colors: newColors }, selected: this.generateColorData(this.n, false) };
+      let setting = state.setting;
+      setting.colors = newColors;
+      return { setting, selected: this.generateColorData(this.n, false) };
     })
   }
 
@@ -72,9 +75,12 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    let name = e.target.value;
+    let name = e.target.name;
+    let value = e.target.name === 'balanced' ? e.target.checked : e.target.value;
     this.setState(state => {
-      return ({ setting: { name, colors: state.setting.colors } })
+      let setting = this.state.setting;
+      setting[name] = value;
+      return ({ setting })
     })
   }
 
@@ -99,12 +105,11 @@ class App extends React.Component {
   }
 
   handleFade(fadeFunction) {
-    let newColors = fadeFunction(this.state.setting.colors);
-    this.setState({
-      setting: {
-        name: null,
-        colors: newColors
-      }
+    let newColors = fadeFunction(this.state.setting.colors, this.state.setting.balanced);
+    this.setState((state) => {
+      let setting = state.setting;
+      setting.colors = newColors;
+      return {setting};
     })
   }
 
@@ -138,7 +143,7 @@ class App extends React.Component {
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
                     settingName={this.state.setting.name}
-                    balanced={this.state.balanced}
+                    balanced={this.state.setting.balanced}
                     theme={theme} />
                   <Matrix
                     thumbnail={false}
