@@ -27,6 +27,7 @@ class App extends React.Component {
     this.state = {
       color: '#337475',
       selected: this.emptySelectedSet,
+      balanced: true,
       setting: {
         name: null,
         colors: this.generateColorData(this.n, '#ffffff')
@@ -137,6 +138,7 @@ class App extends React.Component {
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
                     settingName={this.state.setting.name}
+                    balanced={this.state.balanced}
                     theme={theme} />
                   <Matrix
                     thumbnail={false}
