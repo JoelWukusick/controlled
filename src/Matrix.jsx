@@ -7,7 +7,7 @@ const Main = styled.div`
   display: grid;
   grid-template-columns: repeat(${props => props.n}, auto);
   grid-template-rows: repeat(${props => props.n}, auto);
-  grid-gap: ${props => { return (props.thumbnail ? '0px' : '1px') }};
+  grid-gap: ${props => { return (props.thumbnail ? '0px' : '2px') }};
   padding: 0px;
   background-color: ${props => props.theme.backgroundColor1};
   border-radius: 7px;

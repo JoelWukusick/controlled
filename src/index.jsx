@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
-import { theme, Win, Header, Pad, Content, Column, Main } from './styles/App.js';
+import { theme, Win, Pad, Content, Column, Main } from './styles/App.js';
+import Header from './Header.jsx'
 import Matrix from './Matrix.jsx';
 import ControlPanel from './ControlPanel.jsx';
 import SaveForm from './SaveForm.jsx';
@@ -47,7 +48,7 @@ class App extends React.Component {
   }
 
   handleDrag(color, e) {
-    if(!color){console.log(e.target.value);}
+    if (!color) { console.log(e.target.value); }
     this.setState({ color: color.hex })
   }
 
@@ -121,15 +122,14 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <Win>
-          <Header>
-            ControlLED
-          </Header>
+          <Header />
           <Pad>
             <Content>
               <Column>
                 <Main>
 
                   <ControlPanel
+                    defaultColors={this.state.defaultColors}
                     color={this.state.color}
                     handleDrag={this.handleDrag}
                     handleClick={this.handleClick}
@@ -137,7 +137,7 @@ class App extends React.Component {
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
                     settingName={this.state.setting.name}
-                    theme={theme}/>
+                    theme={theme} />
                   <Matrix
                     thumbnail={false}
                     n={this.n}

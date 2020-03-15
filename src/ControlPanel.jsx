@@ -5,12 +5,16 @@ import SaveForm from './SaveForm.jsx';
 import horizontalFade from './colorFunctions/horizontalFade.js';
 
 const Main = styled.div`
-  display: 'inline-block';
-  padding: 15px;
+  display: inline-block;
+  padding: 0px 15px;
+
   padding-left: 0px;
   background-color: ${props => props.theme.backgroundColor1};
 `
+
+
 const Fade = styled.button`
+  margin-top: 10%;
 `
 
 
@@ -23,12 +27,12 @@ function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, han
         color={color}
         theme={theme}
       />
+      <Fade onClick={() => { handleFade(horizontalFade) }}>HORIZONTAL FADE</Fade>
       <SaveForm
         settingName={settingName}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      <Fade onClick={() => { handleFade(horizontalFade) }}>HORIZONTAL FADE</Fade>
     </Main>
   )
 }

@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import Matrix from './Matrix.jsx';
 
 const DesignsDisplay = styled.div`
-  padding: 10px;
+  padding: 10%;
 `
 
 const DesignName = styled.div`
-  padding: 8px 0px 15px;
+  padding: 5% 0px 15%;
   text-align: center;
   font-family: ${props => props.theme.displayFont};
   font-weight: 200;
   text-transform: uppercase;
+  font-size: 14pt;
 `
 
 const ThumbContainer = styled.div`
@@ -19,13 +20,12 @@ const ThumbContainer = styled.div`
 `
 
 function SavedDesigns({ designs, theme, n, selected, handleSelectSaved }) {
-  if (designs) {
+  if (designs.length > 0) {
     return (
       <DesignsDisplay>
         {designs.map((design, i) => {
           return (
-            <div
-            onClick={(e) => {handleSelectSaved(e, design)}}>
+            <div key={i} onClick={(e) => {handleSelectSaved(e, design)}}>
               <ThumbContainer theme={theme} >
                 <Matrix
                   thumbnail={true}
@@ -45,9 +45,9 @@ function SavedDesigns({ designs, theme, n, selected, handleSelectSaved }) {
       </DesignsDisplay>
     )
   } else {
-    return <ThumbContainer theme={theme}>
+    return <DesignName>
       No items saved yet
-    </ThumbContainer>
+    </DesignName>
   }
 }
 
