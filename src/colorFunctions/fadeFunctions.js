@@ -36,12 +36,10 @@ module.exports = {
     let stepColorsFirst = fade.fade(array[0], array[array.length - rowLength], rowLength, balanced);
     let stepColorsLast = fade.fade(array[rowLength - 1], array[array.length - 1], rowLength, balanced);
     for (var i = 0; i < rowLength; i++) {
-      stepColors.push(fade.fade(stepColorsFirst[i], stepColorsLast[i], rowLength, balanced));
+      stepColors = stepColors.concat(fade.fade(stepColorsFirst[i], stepColorsLast[i], rowLength, balanced));
     }
-    console.log(stepColors);
-    return array.map((hex, i) => {
-      return stepColors[Math.floor(i / 12)][i % 12];
-    })
+    return stepColors;
+
   },
   // 'O': (array, balanced) => {
   //   let rowLength = Math.sqrt(array.length);
