@@ -9,11 +9,23 @@ const FadeControlsContainer = styled.div`
 const Fade = styled.button`
 `
 
+const FadePatterns = styled.form`
+  display: grid;
+  grid-template-columns: repeat(14, auto);
+
+`
+
+const FadeColors = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+
+`
+
 function FadeControls({ handleFade, handleChange, setting }) {
   return (
     <FadeControlsContainer>
       <p>FADE OPTIONS</p>
-      <form onChange={handleChange} value={setting.direction}>
+      <FadePatterns onChange={handleChange} value={setting.direction}>
         <input type='radio' id='N' name='direction' value='N' />
         <label >N</label>
         <input type='radio' id='E' name='direction' value='E' />
@@ -28,9 +40,14 @@ function FadeControls({ handleFade, handleChange, setting }) {
         <label >solid</label>
         <input type='radio' id='X' name='direction' value='X' />
         <label >X</label>
-      </form>
-      <input onChange={handleChange} type='checkbox' name='balanced' />
-      <label>BALANCED</label><br></br>
+      </FadePatterns>
+      <FadeColors>
+        {setting.fadeColors.map((color) => {
+          return <li>{color}</li>
+        })}
+      </FadeColors>
+        <input onChange={handleChange} type='checkbox' name='balanced' />
+        <label>BALANCED</label><br></br>
       <Fade onClick={() => { handleFade(fade[setting.direction]) }}>FADE</Fade>
     </FadeControlsContainer>
   )

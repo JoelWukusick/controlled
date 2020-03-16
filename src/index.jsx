@@ -30,6 +30,7 @@ class App extends React.Component {
       setting: {
         balanced: false,
         fade: 'N',
+        fadeColors: ['#337475', '#F1DAE9'],
         name: null,
         colors: this.generateColorData(this.n, '#ffffff')
       },
