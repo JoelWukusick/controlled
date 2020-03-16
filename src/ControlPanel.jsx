@@ -14,7 +14,7 @@ const Main = styled.div`
 
 
 
-function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, handleFade, color, settingName, theme, balanced }) {
+function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, handleFade, color, settingName, theme, balanced, setting }) {
   return (
     <Main>
       <ColorPicker
@@ -24,6 +24,7 @@ function ControlPanel({ handleClick, handleDrag, handleChange, handleSubmit, han
         theme={theme}
       />
       <FadeControls
+        setting={setting}
         handleFade={handleFade}
         balanced={balanced}
         handleChange={handleChange}/>

@@ -29,7 +29,7 @@ class App extends React.Component {
       selected: this.emptySelectedSet,
       setting: {
         balanced: false,
-        fade: '^',
+        fade: 'N',
         name: null,
         colors: this.generateColorData(this.n, '#ffffff')
       },
@@ -142,6 +142,7 @@ class App extends React.Component {
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
+                    setting={this.state.setting}
                     settingName={this.state.setting.name}
                     balanced={this.state.setting.balanced}
                     theme={theme} />
