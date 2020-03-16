@@ -13,8 +13,6 @@ function FadeControls({ handleFade, handleChange, setting }) {
   return (
     <FadeControlsContainer>
       <p>FADE OPTIONS</p>
-      <input onChange={handleChange} type='checkbox' name='balanced' />
-      <label>BALANCED</label><br></br>
       <form onChange={handleChange} value={setting.direction}>
         <input type='radio' id='N' name='direction' value='N' />
         <label >N</label>
@@ -28,7 +26,11 @@ function FadeControls({ handleFade, handleChange, setting }) {
         <label >o</label>
         <input type='radio' id='solid' name='direction' value='solid' />
         <label >solid</label>
+        <input type='radio' id='X' name='direction' value='X' />
+        <label >X</label>
       </form>
+      <input onChange={handleChange} type='checkbox' name='balanced' />
+      <label>BALANCED</label><br></br>
       <Fade onClick={() => { handleFade(fade[setting.direction]) }}>FADE</Fade>
     </FadeControlsContainer>
   )

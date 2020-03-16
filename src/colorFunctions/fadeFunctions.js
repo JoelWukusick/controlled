@@ -19,7 +19,6 @@ module.exports = {
   'NE': (array, balanced) => {
     let rowLength = Math.sqrt(array.length);
     let stepColors = fade.fade(array[array.length - rowLength], array[rowLength - 1], 2 * rowLength - 1, balanced);
-    console.log(stepColors)
     return array.map((hex, i) => {
       return stepColors[(i) % rowLength - Math.floor(i / 12) + rowLength - 1];
     })
@@ -27,23 +26,26 @@ module.exports = {
   'NW': (array, balanced) => {
     let rowLength = Math.sqrt(array.length);
     let stepColors = fade.fade(array[0], array[array.length - 1], 2 * rowLength - 1, balanced);
-    console.log(stepColors)
     return array.map((hex, i) => {
-      return stepColors[ Math.floor(i / 12) + (i) % rowLength ];
+      return stepColors[Math.floor(i / 12) + (i) % rowLength];
     })
   },
-  // 'X': (array, balanced) => {
-  //   let rowLength = Math.sqrt(array.length);
-  //   let stepColors = fade.fade(array[array.length - rowLength], array[rowLength - 1], 2 * rowLength - 1, balanced);
-  //   console.log(stepColors)
-  //   return array.map((hex, i) => {
-  //     return stepColors[(i) % rowLength - Math.floor(i / 12) + rowLength - 1];
-  //   })
-  // },
+  'X': (array, balanced) => {
+    let rowLength = Math.sqrt(array.length);
+    let stepColors = []
+    let stepColorsFirst = fade.fade(array[0], array[array.length - rowLength], rowLength, balanced);
+    let stepColorsLast = fade.fade(array[rowLength - 1], array[array.length - 1], rowLength, balanced);
+    for (var i = 0; i < rowLength; i++) {
+      stepColors.push(fade.fade(stepColorsFirst[i], stepColorsLast[i], rowLength, balanced));
+    }
+    console.log(stepColors);
+    return array.map((hex, i) => {
+      return stepColors[Math.floor(i / 12)][i % 12];
+    })
+  },
   // 'O': (array, balanced) => {
   //   let rowLength = Math.sqrt(array.length);
   //   let stepColors = fade.fade(array[array.length - rowLength], array[rowLength - 1], 2 * rowLength - 1, balanced);
-  //   console.log(stepColors)
   //   return array.map((hex, i) => {
   //     return stepColors[(i) % rowLength - Math.floor(i / 12) + rowLength - 1];
   //   })
