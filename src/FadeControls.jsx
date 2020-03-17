@@ -41,15 +41,19 @@ const FadePattern = styled.input`
 `
 
 const FadePatternContainer = styled.div`
-  /* display: inline-block; */
+  display: inline-block;
+  padding: 3px 3px 0px 3px;
   border-style: solid;
-  border-width: 1px;
-  border-color: ${props => props.theme.backgroundColor2};
-  width: 100%;
+  border-width:  ${props => props.selected ? '2px' : '1px'};
+  border-color: ${props => props.selected ? props.theme.colorDark : props.theme.backgroundColor2};
 `
 
 const PatternImage = styled.img`
   max-width: 100%;
+`
+
+const PatternLabel = styled.label`
+
 `
 
 function FadeControls({ handleFade, handleChange, setting }) {
@@ -59,29 +63,16 @@ function FadeControls({ handleFade, handleChange, setting }) {
       <p>FADE OPTIONS</p>
       <FadePatterns onChange={handleChange} value={setting.direction}>
         {directions.map((dir) => {
+          let selected = (dir === setting.fade) ? true : false;
           return (
-            <FadePatternContainer>
+            <FadePatternContainer selected={selected}>
               <FadePattern type='radio' id={dir} name='direction' value={dir} />
-              <label for={dir}>
+              <PatternLabel htmlFor={dir}>
                 <PatternImage src={`https://ledcontroller.s3.us-east-2.amazonaws.com/fadeThumbs/${dir}.png`}></PatternImage>
-              </label>
+              </PatternLabel>
             </FadePatternContainer>
           )
         })}
-
-        {/*
-        // <input type='radio' id='E' name='direction' value='E' />
-        // <label >E</label>
-        // <input type='radio' id='NE' name='direction' value='NE' />
-        // <label >NE</label>
-        // <input type='radio' id='NW' name='direction' value='NW' />
-        // <label >NW</label>
-        // <input type='radio' id='O' name='direction' value='O' />
-        // <label >o</label>
-        // <input type='radio' id='solid' name='direction' value='solid' />
-        // <label >solid</label>
-        // <input type='radio' id='X' name='direction' value='X' />
-        // <label >X</label> */}
       </FadePatterns>
       <FadeColors>
         {setting.fadeColors.map((color) => {
