@@ -21,7 +21,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getDesigns = this.getDesigns.bind(this);
-    this.emptySelectedSet = this.generateColorData(this.n, false);
+    this.emptySelectedSet = this.generateColorData(this.n, false).concat([false, false, false, false]);
     this.handleSelectSaved = this.handleSelectSaved.bind(this);
     this.handleFade = this.handleFade.bind(this);
     this.state = {
@@ -68,6 +68,7 @@ class App extends React.Component {
 
 
   handleSelect(e, i) {
+    console.log(e, i)
     this.setState(state => {
       let selected = state.selected;
       selected[i] = !selected[i];
@@ -110,7 +111,7 @@ class App extends React.Component {
     this.setState((state) => {
       let setting = state.setting;
       setting.colors = newColors;
-      return {setting};
+      return { setting };
     })
   }
 
@@ -143,9 +144,11 @@ class App extends React.Component {
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
+                    handleSelect={this.handleSelect}
                     setting={this.state.setting}
                     settingName={this.state.setting.name}
                     balanced={this.state.setting.balanced}
+                    n={this.n}
                     theme={theme} />
                   <Matrix
                     thumbnail={false}

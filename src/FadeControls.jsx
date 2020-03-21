@@ -56,7 +56,7 @@ const PatternLabel = styled.label`
 
 `
 
-function FadeControls({ handleFade, handleChange, setting }) {
+function FadeControls({ handleFade, handleChange, handleSelect, setting, n }) {
   let directions = ['N', 'E', 'NE', 'NW', 'O', 'solid', 'X'];
   return (
     <FadeControlsContainer>
@@ -75,8 +75,9 @@ function FadeControls({ handleFade, handleChange, setting }) {
         })}
       </FadePatterns>
       <FadeColors>
-        {setting.fadeColors.map((color) => {
-          return <FadeColor color={color}></FadeColor>
+        {setting.fadeColors.map((color, i) => {
+
+          return color ? <FadeColor onClick={(e) => handleSelect(e, i + n * n)} id={i + n * n} color={color}></FadeColor> : null;
         })}
       </FadeColors>
       <input onChange={handleChange} type='checkbox' name='balanced' />
