@@ -27,8 +27,11 @@ const FadeColors = styled.ul`
 const FadeColor = styled.li`
   list-style: none;
   border-style: solid;
-  border-width: 1px;
-  border-color: ${props => props.theme.backgroundColor2};
+  border-width: 2px;
+  border-style: ${props => props.selected ? 'dashed' : 'solid'};
+  border-color: ${props => props.selected ? props.theme.colorDark : props.theme.backgroundColor1};
+  border-radius: 5%;
+  background-clip: padding-box;
   width: 100%;
   padding-top: 100%;
   background-color: ${props => props.color};
@@ -44,7 +47,7 @@ const FadePatternContainer = styled.div`
   display: inline-block;
   padding: 3px 3px 0px 3px;
   border-style: solid;
-  border-width:  ${props => props.selected ? '2px' : '1px'};
+  border-width:  ${props => props.selected ? '2px' : '0px'};
   border-color: ${props => props.selected ? props.theme.colorDark : props.theme.backgroundColor2};
 `
 
@@ -56,14 +59,14 @@ const PatternLabel = styled.label`
 
 `
 
-function FadeControls({ handleFade, handleChange, handleSelect, setting, n }) {
+function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, direction, selected, n }) {
   let directions = ['N', 'E', 'NE', 'NW', 'O', 'solid', 'X'];
   return (
     <FadeControlsContainer>
       <p>FADE OPTIONS</p>
-      <FadePatterns onChange={handleChange} value={setting.direction}>
+      <FadePatterns onChange={handleChange} value={direction}>
         {directions.map((dir) => {
-          let selected = (dir === setting.fade) ? true : false;
+          let selected = (dir === direction) ? true : false;
           return (
             <FadePatternContainer selected={selected}>
               <FadePattern type='radio' id={dir} name='direction' value={dir} />
@@ -75,14 +78,14 @@ function FadeControls({ handleFade, handleChange, handleSelect, setting, n }) {
         })}
       </FadePatterns>
       <FadeColors>
-        {setting.fadeColors.map((color, i) => {
+        {fadeColors.map((color, i) => {
 
-          return color ? <FadeColor onClick={(e) => handleSelect(e, i + n * n)} id={i + n * n} color={color}></FadeColor> : null;
+          return color ? <FadeColor selected={selected[i + n * n]} onClick={(e) => handleSelect(e, i + n * n)} id={i + n * n} color={color}></FadeColor> : null;
         })}
       </FadeColors>
       <input onChange={handleChange} type='checkbox' name='balanced' />
       <label>BALANCED</label><br></br>
-      <Fade onClick={() => { handleFade(fade[setting.direction]) }}>FADE</Fade>
+      <Fade onClick={() => { handleFade(direction) }}>FADE</Fade>
     </FadeControlsContainer>
   )
 }

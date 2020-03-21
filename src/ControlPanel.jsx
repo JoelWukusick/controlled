@@ -7,14 +7,13 @@ import SaveForm from './SaveForm.jsx';
 const Main = styled.div`
   display: inline-block;
   padding: 0px 15px;
-
   padding-left: 0px;
   background-color: ${props => props.theme.backgroundColor1};
 `
 
 
 
-function ControlPanel({ handleClick, handleDrag, handleSelect, handleChange, handleSubmit, handleFade, color, theme, setting, n }) {
+function ControlPanel({ handleClick, handleDrag, handleSelect, handleChange, handleSubmit, handleFade, color, theme, fadeColors, fadeColor, direction, balanced, name, selected, n }) {
   return (
     <Main>
       <ColorPicker
@@ -24,16 +23,18 @@ function ControlPanel({ handleClick, handleDrag, handleSelect, handleChange, han
         theme={theme}
       />
       <FadeControls
-        fadeColors={setting.fadeColors}
-        setting={setting}
+        fadeColors={fadeColors}
+        fadeColor={fadeColor}
         n={n}
         handleFade={handleFade}
-        balanced={setting.balanced}
+        balanced={balanced}
         handleSelect={handleSelect}
-        handleChange={handleChange} />
+        handleChange={handleChange}
+        direction={direction}
+        selected={selected} />
 
       <SaveForm
-        settingName={setting.name}
+        settingName={name}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />

@@ -29,7 +29,7 @@ class App extends React.Component {
       selected: this.emptySelectedSet,
       setting: {
         balanced: false,
-        fade: 'N',
+        direction: 'N',
         fadeColors: ['#337475', '#F1DAE9', null, null],
         name: null,
         colors: this.generateColorData(this.n, '#ffffff')
@@ -147,9 +147,11 @@ class App extends React.Component {
                     handleSubmit={this.handleSubmit}
                     handleFade={this.handleFade}
                     handleSelect={this.handleSelect}
-                    setting={this.state.setting}
+                    direction={this.state.setting.direction}
+                    fadeColors={this.state.setting.fadeColors}
                     settingName={this.state.setting.name}
                     balanced={this.state.setting.balanced}
+                    selected={this.state.selected}
                     n={this.n}
                     theme={theme} />
                   <Matrix
