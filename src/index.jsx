@@ -100,9 +100,11 @@ class App extends React.Component {
   }
 
   handleSelectSaved(e, design) {
-    let setting = { name: design.name, colors: design.colors }
-    this.setState({
-      setting
+    this.setState((state) => {
+      let setting = state.setting;
+      setting.name = design.name;
+      setting.colors = design.colors;
+      return { setting };
     })
   }
 
