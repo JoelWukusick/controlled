@@ -1,12 +1,10 @@
 import React from 'react';
+import FadeColor from './FadeColor.jsx';
 import styled from 'styled-components';
 import fade from './colorFunctions/fadeFunctions.js';
 
 const FadeControlsContainer = styled.div`
-  margin-top: 10%;
-`
-
-const Fade = styled.button`
+  margin-top: 8%;
 `
 
 const FadePatterns = styled.form`
@@ -18,24 +16,12 @@ const FadePatterns = styled.form`
 
 const FadeColors = styled.ul`
   padding-left: 0px;
-  width: 80%;
+  width: 60%;
   display: grid;
-  grid-gap: 15px;
-  grid-template-columns: repeat(6, auto);
+  grid-gap: 6%;
+  grid-template-columns: repeat(4, 22%);
 `
 
-const FadeColor = styled.li`
-  list-style: none;
-  border-style: solid;
-  border-width: 2px;
-  border-style: ${props => props.selected ? 'dashed' : 'solid'};
-  border-color: ${props => props.selected ? props.theme.colorDark : props.theme.backgroundColor1};
-  border-radius: 5%;
-  background-clip: padding-box;
-  width: 100%;
-  padding-top: 100%;
-  background-color: ${props => props.color};
-`
 
 const FadePattern = styled.input`
   opacity: 0;
@@ -47,8 +33,8 @@ const FadePatternContainer = styled.div`
   display: inline-block;
   padding: 3px 3px 0px 3px;
   border-style: solid;
-  border-width:  ${props => props.selected ? '2px' : '0px'};
-  border-color: ${props => props.selected ? props.theme.colorDark : props.theme.backgroundColor2};
+  border-width:  2px;
+  border-color: ${props => props.selected ? props.theme.colorDark : props.theme.backgroundColor1};
 `
 
 const PatternImage = styled.img`
@@ -59,8 +45,21 @@ const PatternLabel = styled.label`
 
 `
 
+const Apply = styled.button`
+  position: relative;
+  width: 30%;
+  margin-top: 2%;
+  padding: '15px ';
+  padding-right: '0px';
+  text-align: center;
+  font-family: ${props => props.theme.displayFont};
+  font-size: 12pt;
+  font-weight: 300;
+  color: ${props => props.theme.colorDark};
+`
+
 function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, direction, selected, n }) {
-  let directions = ['N', 'E', 'NE', 'NW', 'O', 'solid', 'X'];
+  let directions = ['N', 'E', 'NE', 'NW', 'O', 'X'];
   return (
     <FadeControlsContainer>
       <p>FADE OPTIONS</p>
@@ -77,16 +76,21 @@ function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, dire
           )
         })}
       </FadePatterns>
+      <p>FADE COLORS</p>
       <FadeColors>
         {fadeColors.map((color, i) => {
-
-          return color ? <FadeColor selected={selected[i + n * n]} onClick={(e) => handleSelect(e, i + n * n)} id={i + n * n} color={color}></FadeColor> : null;
+          return color ? <FadeColor
+            selected={selected[i]}
+            id={i + n * n}
+            handleSelect={handleSelect}
+            color={color}>
+          </FadeColor> : null;
         })}
       </FadeColors>
       <input onChange={handleChange} type='checkbox' name='balanced' />
       <label>BALANCED</label><br></br>
-      <Fade onClick={() => { handleFade(direction) }}>FADE</Fade>
-    </FadeControlsContainer>
+      <Apply onClick={() => { handleFade(fade[direction]) }}>APPLY FADE</Apply>
+    </FadeControlsContainer >
   )
 }
 

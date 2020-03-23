@@ -21,16 +21,17 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getDesigns = this.getDesigns.bind(this);
-    this.emptySelectedSet = this.generateColorData(this.n, false).concat([false, false, false, false]);
+    this.emptySelectedSet = this.generateColorData(this.n, false);
     this.handleSelectSaved = this.handleSelectSaved.bind(this);
     this.handleFade = this.handleFade.bind(this);
     this.state = {
       color: '#337475',
       selected: this.emptySelectedSet,
+      fadeColorsSelected: [false, false, false, false],
       setting: {
         balanced: false,
         direction: 'N',
-        fadeColors: ['#337475', '#F1DAE9', null, null],
+        fadeColors: ['#ffffff', '#ffffff', null, null],
         name: null,
         colors: this.generateColorData(this.n, '#ffffff')
       },
@@ -60,28 +61,42 @@ class App extends React.Component {
       let newColors = state.setting.colors.map((value, i) => {
         return state.selected[i] ? this.state.color : value;
       })
+      let newFadeColors = state.setting.fadeColors.map((value, i) => {
+        return state.fadeColorsSelected[i] ? this.state.color : value;
+      })
       let setting = state.setting;
       setting.colors = newColors;
-      return { setting, selected: this.generateColorData(this.n, false) };
+      setting.fadeColors = newFadeColors;
+      return { setting, selected: this.generateColorData(this.n, false), fadeColorsSelected: [false, false, false, false] };
     })
   }
 
 
   handleSelect(e, i) {
-    console.log(e, i)
-    this.setState(state => {
-      let selected = state.selected;
-      selected[i] = !selected[i];
-      return { selected }; g
-    })
+    if (i >= this.n ** 2) {
+      this.setState(state => {
+        let selected = state.fadeColorsSelected;
+        selected[i - this.n ** 2] = !selected[i - this.n ** 2]
+        return { fadeColorsSelected: selected };
+      })
+    } else {
+      this.setState(state => {
+        let selected = state.selected;
+        selected[i] = !selected[i];
+        return { selected };
+      })
+    }
   }
 
   handleChange(e) {
     let name = e.target.name;
-    let value = e.target.name === 'balanced' ? e.target.checked : e.target.value;
+    let value = name === 'balanced' ? e.target.checked : e.target.value;
     this.setState(state => {
       let setting = this.state.setting;
       setting[name] = value;
+      if (name === 'direction') {
+        setting.fadeColors = setting.direction === 'X' ? [setting.fadeColors[0], setting.fadeColors[1], '#ffffff', '#ffffff'] : [setting.fadeColors[0], setting.fadeColors[1], null, null];
+      }
       return ({ setting })
     })
   }
@@ -109,7 +124,7 @@ class App extends React.Component {
   }
 
   handleFade(fadeFunction) {
-    let newColors = fadeFunction(this.state.setting.colors, this.state.setting.balanced);
+    let newColors = fadeFunction(this.state.setting.colors, this.state.setting.balanced, this.state.setting.fadeColors);
     this.setState((state) => {
       let setting = state.setting;
       setting.colors = newColors;
@@ -151,7 +166,7 @@ class App extends React.Component {
                     fadeColors={this.state.setting.fadeColors}
                     settingName={this.state.setting.name}
                     balanced={this.state.setting.balanced}
-                    selected={this.state.selected}
+                    selected={this.state.fadeColorsSelected}
                     n={this.n}
                     theme={theme} />
                   <Matrix

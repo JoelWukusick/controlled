@@ -13,7 +13,7 @@ const { rotateGrey } = require('./colorFunctions/hexFunctions.js');
 // `
 
 const ColumnsContainer = styled.div`
-  margin-top: 6%;
+  margin-top: 5%;
   display: grid;
   grid-template-columns: 30% 70%;
   grid-gap: 3px;
@@ -29,8 +29,8 @@ const Column = styled.div`
 
 const SaturationContainer = styled.div`
   position: relative;
-  width: 100%;
-  padding-top: 55%;
+  width: 95%;
+  padding-top: 53%;
   border-width: 1px;
   border-style: solid;
   border-color: ${props => props.theme.backgroundColor2};
@@ -39,8 +39,8 @@ const SaturationContainer = styled.div`
 
 const HueContainer = styled.div`
   position: relative;
-  width: 100%;
-  padding-top: 6%;
+  width: 95%;
+  padding-top: 4%;
   margin-top: 2%;
   border-width: 1px;
   border-style: solid;
@@ -55,7 +55,7 @@ const Apply = styled.button`
   padding-right: '0px';
   text-align: center;
   font-family: ${props => props.theme.displayFont};
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: 300;
   color: ${props => props.theme.colorDark};
 `
@@ -103,7 +103,7 @@ class ColorPicker extends React.Component {
                   paddingLeft: '0px'
                 },
                 input: {
-                  padding: '15px',
+                  padding: '14px',
                   width: '100%',
                   borderStyle: 'solid',
                   borderWidth: '1px',
@@ -119,7 +119,7 @@ class ColorPicker extends React.Component {
               }}
               value={this.props.color}
               onChange={this.props.onChange} />
-            <Apply onClick={this.props.handleClick}>APPLY</Apply>
+            <Apply onClick={this.props.handleClick}>APPLY COLOR</Apply>
           </Column>
           <Column>
           </Column>

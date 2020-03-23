@@ -2,48 +2,48 @@ const hexFunctions = require('./hexFunctions.js');
 const fade = require('./fade.js');
 
 module.exports = {
-  'N': (array, balanced) => {
+  'N': (array, balanced, colors) => {
     let rowLength = Math.sqrt(array.length);
-    let stepColors = fade.fade(array[0], array[array.length - 1], rowLength, balanced);
+    let stepColors = fade.fade(colors[0], colors[1], rowLength, balanced);
     return array.map((hex, i) => {
       return stepColors[Math.floor(i / rowLength)];
     })
   },
-  'E': (array, balanced) => {
+  'E': (array, balanced, colors) => {
     let rowLength = Math.sqrt(array.length);
-    let stepColors = fade.fade(array[0], array[array.length - 1], rowLength, balanced);
+    let stepColors = fade.fade(colors[0], colors[1], rowLength, balanced);
     return array.map((hex, i) => {
       return stepColors[i % rowLength];
     })
   },
-  'NE': (array, balanced) => {
+  'NE': (array, balanced, colors) => {
     let rowLength = Math.sqrt(array.length);
-    let stepColors = fade.fade(array[array.length - rowLength], array[rowLength - 1], 2 * rowLength - 1, balanced);
+    let stepColors = fade.fade(colors[0], colors[1], 2 * rowLength - 1, balanced);
     return array.map((hex, i) => {
       return stepColors[(i) % rowLength - Math.floor(i / 12) + rowLength - 1];
     })
   },
-  'NW': (array, balanced) => {
+  'NW': (array, balanced, colors) => {
     let rowLength = Math.sqrt(array.length);
-    let stepColors = fade.fade(array[0], array[array.length - 1], 2 * rowLength - 1, balanced);
+    let stepColors = fade.fade(colors[0], colors[1], 2 * rowLength - 1, balanced);
     return array.map((hex, i) => {
       return stepColors[Math.floor(i / 12) + (i) % rowLength];
     })
   },
-  'X': (array, balanced) => {
+  'X': (array, balanced, colors) => {
     let rowLength = Math.sqrt(array.length);
     let stepColors = []
-    let stepColorsFirst = fade.fade(array[0], array[array.length - rowLength], rowLength, balanced);
-    let stepColorsLast = fade.fade(array[rowLength - 1], array[array.length - 1], rowLength, balanced);
+    let stepColorsFirst = fade.fade(colors[0], colors[2], rowLength, balanced);
+    let stepColorsLast = fade.fade(colors[1], colors[3], rowLength, balanced);
     for (var i = 0; i < rowLength; i++) {
       stepColors = stepColors.concat(fade.fade(stepColorsFirst[i], stepColorsLast[i], rowLength, balanced));
     }
     return stepColors;
 
   },
-  'O': (array, balanced) => {
+  'O': (array, balanced, colors) => {
     let rowLength = Math.sqrt(array.length);
-    stepColors = fade.fade(array[array.length / 2 - rowLength / 2 - 1], array[0], rowLength - 1, balanced);
+    stepColors = fade.fade(colors[1], colors[0], rowLength - 1, balanced);
     return array.map((hex, i) => {
       let originVert = 6;
       let originHor = 6;
@@ -56,15 +56,10 @@ module.exports = {
       return stepColors[Math.abs(originVert - i % 12) + Math.abs(originHor - Math.floor(i / 12))]
     })
   },
-  // let stepColorsFirst = fade.fade(array[0], array[array.length - rowLength], rowLength, balanced);
-  // let stepColorsLast = fade.fade(array[rowLength - 1], array[array.length - 1], rowLength, balanced);
-  // for (var i = 0; i < rowLength; i++) {
-  //   stepColors = stepColors.concat(fade.fade(stepColorsFirst[i], stepColorsLast[i], rowLength, balanced));
-  // }
 
-  'solid': (array, balanced) => {
+  'solid': (array, balanced, colors) => {
     return array.map((hex, i) => {
-      return array[0];
+      return colors[0];
     })
   }
 }
