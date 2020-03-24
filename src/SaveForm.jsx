@@ -2,16 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const DesignNameLabel = styled.label`
-  margin-top: 5%;
   font-family: ${props => props.theme.displayFont};
   font-weight: 300;
   display: block;
 `
 
 const FormContainer = styled.div`
-  padding: 15px 0px;
+  padding: 5% 0px;
   display: block;
-  width: 30%;
+  width: 35%;
 `
 
 const InputText = styled.input`

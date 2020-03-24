@@ -5,17 +5,11 @@ const { EditableInput, Saturation, Hue } = require('react-color/lib/components/c
 const { rotateGrey } = require('./colorFunctions/hexFunctions.js');
 
 
-// const PickerContainer = styled.div`
-//   display: grid;
-//   grid-template-columns: 70% 30%;
-//   background-color: ${props => props.theme.backgroundColor1};
-//   grid-gap: 5%;
-// `
-
 const ColumnsContainer = styled.div`
-  margin-top: 5%;
+  margin: 2%;
+  padding-bottom: 3%;
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 35% 65%;
   grid-gap: 3px;
 `
 
@@ -30,7 +24,7 @@ const Column = styled.div`
 const SaturationContainer = styled.div`
   position: relative;
   width: 95%;
-  padding-top: 53%;
+  padding-top: 50%;
   border-width: 1px;
   border-style: solid;
   border-color: ${props => props.theme.backgroundColor2};
@@ -103,7 +97,7 @@ class ColorPicker extends React.Component {
                   paddingLeft: '0px'
                 },
                 input: {
-                  padding: '14px',
+                  padding: '7px',
                   width: '100%',
                   borderStyle: 'solid',
                   borderWidth: '1px',

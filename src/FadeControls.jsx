@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import fade from './colorFunctions/fadeFunctions.js';
 
 const FadeControlsContainer = styled.div`
-  margin-top: 8%;
+  padding: 0px 0px 4%;
+  border-width: 2px 0px;
+  border-style: solid;
+  border-color: ${props => props.theme.colorMedium}
 `
 
 const FadePatterns = styled.form`
@@ -15,6 +18,7 @@ const FadePatterns = styled.form`
 `
 
 const FadeColors = styled.ul`
+  margin-top: 0px;
   padding-left: 0px;
   width: 60%;
   display: grid;
@@ -41,13 +45,17 @@ const PatternImage = styled.img`
   max-width: 100%;
 `
 
-const PatternLabel = styled.label`
-
+const OptionsLabel = styled.p`
+  font-family: ${props => props.theme.displayFont};
+  font-weight: 300;
+  display: block;
+  margin-bottom: 2%;
 `
 
 const Apply = styled.button`
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
   position: relative;
-  width: 30%;
+  width: 35%;
   margin-top: 2%;
   padding: '15px ';
   padding-right: '0px';
@@ -62,21 +70,21 @@ function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, dire
   let directions = ['N', 'E', 'NE', 'NW', 'O', 'X'];
   return (
     <FadeControlsContainer>
-      <p>FADE OPTIONS</p>
+      <OptionsLabel>FADE OPTIONS</OptionsLabel>
       <FadePatterns onChange={handleChange} value={direction}>
         {directions.map((dir) => {
           let selected = (dir === direction) ? true : false;
           return (
             <FadePatternContainer selected={selected}>
               <FadePattern type='radio' id={dir} name='direction' value={dir} />
-              <PatternLabel htmlFor={dir}>
+              <label htmlFor={dir}>
                 <PatternImage src={`https://ledcontroller.s3.us-east-2.amazonaws.com/fadeThumbs/${dir}.png`}></PatternImage>
-              </PatternLabel>
+              </label>
             </FadePatternContainer>
           )
         })}
       </FadePatterns>
-      <p>FADE COLORS</p>
+      <OptionsLabel>FADE COLORS</OptionsLabel>
       <FadeColors>
         {fadeColors.map((color, i) => {
           return color ? <FadeColor

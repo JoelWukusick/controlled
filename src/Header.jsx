@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const HeaderContainer = styled.div`
   background-color: ${props => props.theme.colorDark};
   flex-wrap: wrap;
@@ -9,11 +10,11 @@ const HeaderContainer = styled.div`
 `
 
 const TitleContainer = styled.div`
-  font-weight: 200;
-  -webkit-font-smoothing: antialiased;
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
+  font-weight: 300;
   color: ${props => props.theme.backgroundColor1};
   padding: .4% 2%;
-  font-size: 1.3vw;
+  font-size: 32px;
   font-family: ${props => props.theme.displayFont};
 `
 
@@ -26,24 +27,27 @@ const NavContainer = styled.ul`
 const ListItem = styled.li`
   padding: 0px 25px;
   font-family: ${props => props.theme.displayFont};
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
+  font-weight: 200;
   color: ${props => props.theme.backgroundColor1};
-  font-size: .8vw;
+  font-size: 20pt;
 `
+
 
 function Header() {
   return (
-    <HeaderContainer>
-      <TitleContainer>
-        ControlLED
+    <div>
+      <HeaderContainer>
+        <TitleContainer>
+          ControlLED
       </TitleContainer>
-      <NavContainer>
-        <ListItem>instructions</ListItem>
-        <ListItem>sign up</ListItem>
-        <ListItem>sign in</ListItem>
-      </NavContainer>
-    </HeaderContainer>
+        <NavContainer>
+          <ListItem>instructions</ListItem>
+          <ListItem>sign up</ListItem>
+          <ListItem>sign in</ListItem>
+        </NavContainer>
+      </HeaderContainer>
+
+    </div>
   )
 }
 

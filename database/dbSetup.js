@@ -1,16 +1,17 @@
 const { Client, Pool } = require('pg');
+const { user, password, host } = require('./config.js');
 
 const client = new Client({
-  user: 'postgres',
-  password: 'run',
-  host: 'localhost',
-  database: 'postgres',
+  user,
+  password,
+  host,
+  database: 'postgres'
 });
 
 const controlLEDClient = new Client({
-  user: 'postgres',
-  password: 'run',
-  host: 'localhost',
+  user,
+  password,
+  host,
   database: 'controlled',
 });
 
@@ -35,7 +36,9 @@ client
     return controlLEDClient.query(
       `CREATE TABLE users (
         id SERIAL NOT NULL PRIMARY KEY ,
-        name JSON NOT NULL
+        username VARCHAR(40) UNIQUE,
+        password VARCHAR(64),
+        salt VARCHAR(64)
     )`);
   })
   .then(() => {
@@ -44,7 +47,8 @@ client
       `CREATE TABLE designs (
         id SERIAL NOT NULL PRIMARY KEY ,
         name TEXT NOT NULL,
-        colors TEXT []
+        colors TEXT [],
+        user INTEGER REFERENCES users(id)
     )`);
   })
   .then(() => {

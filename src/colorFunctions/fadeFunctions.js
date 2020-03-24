@@ -55,11 +55,5 @@ module.exports = {
       }
       return stepColors[Math.abs(originVert - i % 12) + Math.abs(originHor - Math.floor(i / 12))]
     })
-  },
-
-  'solid': (array, balanced, colors) => {
-    return array.map((hex, i) => {
-      return colors[0];
-    })
   }
 }

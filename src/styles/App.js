@@ -12,7 +12,8 @@ export const theme = {
 
 
 export const Win = styled.div`
-  min-width: 1920px;
+  min-width: 1800px;
+  margin: 0;
   background-color: ${props => props.theme.backgroundColor1};
 `
 

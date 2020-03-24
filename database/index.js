@@ -1,8 +1,11 @@
+
+const { user, password, host } = require('./config.js');
+
 const { Client } = require('pg')
 const client = new Client({
-  user: 'postgres',
-  password: 'run',
-  host: 'localhost',
+  user,
+  password,
+  host,
   database: 'controlled',
 });
 client.connect()
@@ -11,7 +14,7 @@ client.connect()
 
 module.exports = {
   getUserPresets: function () {
-    return (client.query('SELECT * FROM designs ORDER BY id DESC LIMIT 7'));
+    return (client.query('SELECT * FROM designs ORDER BY id DESC LIMIT 6'));
 
     // }
   },
