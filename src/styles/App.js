@@ -6,7 +6,7 @@ export const theme = {
   color3: 'teal',
   backgroundColor1: '#f5f2ed',
   backgroundColor2: '#E1E1E1',
-  displayFont: 'Roboto',
+  displayFont: 'Roboto, sans-serif',
   bodyFont: 'Arial'
 }
 

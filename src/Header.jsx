@@ -15,7 +15,7 @@ const TitleContainer = styled.div`
   padding: .4% 2%;
   font-size: 32px;
   font-weight: 100;
-  font-family: 'Roboto';
+  font-family: ${props => props.theme.displayFont};
   `
 
 const NavContainer = styled.ul`
