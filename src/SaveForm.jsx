@@ -38,10 +38,10 @@ function SaveForm({ handleChange, handleSubmit, theme, settingName }) {
     <FormContainer>
       <form onSubmit={handleSubmit}>
         <DesignNameLabel theme={theme}>
-          DESIGN NAME
+          Design Name
       </DesignNameLabel>
         <InputText type="text" name='name' size='35' onChange={handleChange} />
-        <Save type="submit" value="SAVE" />
+        <Save type="submit" value="Save" />
       </form>
     </FormContainer>
   )

@@ -11,7 +11,7 @@ const Box = styled.li`
   box-sizing: border-box;
   background-clip: padding-box;
   width: 100%;
-  padding-top: 95%;
+  padding-top: 85%;
   background-color: ${props => props.color};
 `
 

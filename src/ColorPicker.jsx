@@ -7,7 +7,7 @@ const { rotateGrey } = require('./colorFunctions/hexFunctions.js');
 
 const ColumnsContainer = styled.div`
   margin: 2%;
-  padding-bottom: 3%;
+  padding-bottom: 2%;
   display: grid;
   grid-template-columns: 35% 65%;
   grid-gap: 3px;
@@ -105,7 +105,7 @@ class ColorPicker extends React.Component {
               }}
               value={this.props.color}
               onChange={this.props.onChange} />
-            <Apply onClick={this.props.handleClick}>APPLY COLOR</Apply>
+            <Apply onClick={this.props.handleClick}>Apply Color</Apply>
           </div>
         </ColumnsContainer>
       </div>

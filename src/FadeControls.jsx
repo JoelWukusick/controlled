@@ -23,7 +23,7 @@ const FadeColors = styled.ul`
   width: 60%;
   display: grid;
   grid-gap: 6%;
-  grid-template-columns: repeat(4, 22%);
+  grid-template-columns: repeat(4, 20%);
 `
 
 
@@ -75,7 +75,7 @@ function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, dire
   let directions = ['N', 'E', 'NE', 'NW', 'O', 'X'];
   return (
     <FadeControlsContainer>
-      <OptionsLabel>FADE OPTIONS</OptionsLabel>
+      <OptionsLabel>Fade Options</OptionsLabel>
       <FadePatterns onChange={handleChange} value={direction}>
         {directions.map((dir) => {
           let selected = (dir === direction) ? true : false;
@@ -89,7 +89,7 @@ function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, dire
           )
         })}
       </FadePatterns>
-      <OptionsLabel>FADE COLORS</OptionsLabel>
+      <OptionsLabel>Fade Colors</OptionsLabel>
       <FadeColors>
         {fadeColors.map((color, i) => {
           return color ? <FadeColor
@@ -101,8 +101,8 @@ function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, dire
         })}
       </FadeColors>
       <input onChange={handleChange} type='checkbox' name='balanced' />
-      <Balanced>BALANCED</Balanced><br></br>
-      <Apply onClick={() => { handleFade(fade[direction]) }}>APPLY FADE</Apply>
+      <Balanced>Balanced</Balanced><br></br>
+      <Apply onClick={() => { handleFade(fade[direction]) }}>Apply Fade</Apply>
     </FadeControlsContainer >
   )
 }
