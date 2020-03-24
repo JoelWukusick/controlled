@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Box = styled.li`
   list-style: none;
   border-style: solid;
-  border-width: 3px;
+  border-width: ${props => props.selected ? '2px' : '2px'};
   border-style: ${props => props.selected ? 'dashed' : 'solid'};
   border-color: ${props => props.selected ? props.theme.colorDark : props.theme.backgroundColor2};
   border-radius: 5%;

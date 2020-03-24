@@ -12,7 +12,7 @@ const DesignName = styled.div`
   font-family: ${props => props.theme.displayFont};
   font-weight: 200;
   text-transform: uppercase;
-  font-size: 14pt;
+  font-size: 12pt;
 `
 
 const ThumbContainer = styled.div`

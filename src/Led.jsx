@@ -7,7 +7,7 @@ const Box = styled.div`
   border-style: ${props => props.selected[props.i] ? 'dashed' : 'solid'};
   border-color: ${props => props.selected[props.i] ? props.theme.colorDark : props.theme.backgroundColor2};
   box-sizing: border-box;
-  border-width: ${props => props.thumbnail ? '0px' : '3px'};
+  border-width: ${props => props.thumbnail ? '0px' : '2px'};
   border-radius: 5%;
   background-color: ${ props => props.color};
   background-clip: padding-box;

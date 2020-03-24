@@ -47,8 +47,8 @@ const PatternImage = styled.img`
 
 const OptionsLabel = styled.p`
   font-family: ${props => props.theme.displayFont};
-  font-weight: 100;
-  font-size: 14pt;
+  font-weight: 300;
+  font-size: 12pt;
   display: block;
   margin-bottom: 2%;
 `
@@ -62,13 +62,13 @@ const Apply = styled.button`
   text-align: center;
   font-family: ${props => props.theme.displayFont};
   font-size: 12pt;
-  font-weight: 100;
+  font-weight: 300;
   color: ${props => props.theme.colorDark};
 `
 const Balanced = styled.label`
   font-family: ${props => props.theme.displayFont};
-  font-weight: 100;
-  font-size: 14pt;
+  font-weight: 300;
+  font-size: 12pt;
 `
 
 function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, direction, selected, n }) {

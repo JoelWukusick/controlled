@@ -47,8 +47,7 @@ client
       `CREATE TABLE designs (
         id SERIAL NOT NULL PRIMARY KEY ,
         name TEXT NOT NULL,
-        colors TEXT [],
-        user INTEGER REFERENCES users(id)
+        colors TEXT []
     )`);
   })
   .then(() => {

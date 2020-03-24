@@ -42,7 +42,7 @@ const Apply = styled.button`
   text-align: center;
   font-family: ${props => props.theme.displayFont};
   font-size: 12pt;
-  font-weight: 100;
+  font-weight: 300;
   color: ${props => props.theme.colorDark};
 `
 
@@ -96,7 +96,7 @@ class ColorPicker extends React.Component {
                   borderColor: this.props.theme.backgroundColor2,
                   textAlign: 'center',
                   fontFamily: this.props.theme.displayFont,
-                  fontWeight: '100',
+                  fontWeight: '300',
                   fontSize: '16pt',
                   color: rotateGrey(this.props.color),
                   boxSizing: 'border-box',
