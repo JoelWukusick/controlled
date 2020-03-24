@@ -13,14 +13,6 @@ const ColumnsContainer = styled.div`
   grid-gap: 3px;
 `
 
-const Column = styled.div`
-  text-align: center;
-  font-family: ${props => props.theme.displayFont};
-  font-weight: 300;
-  font-size: 1vw;
-  /* background-color: ${props => props.theme.backgroundColor1}; */
-`
-
 const SaturationContainer = styled.div`
   position: relative;
   width: 95%;
@@ -50,7 +42,7 @@ const Apply = styled.button`
   text-align: center;
   font-family: ${props => props.theme.displayFont};
   font-size: 12pt;
-  font-weight: 300;
+  font-weight: 100;
   color: ${props => props.theme.colorDark};
 `
 
@@ -87,7 +79,7 @@ class ColorPicker extends React.Component {
             direction={'horizontal'} />
         </HueContainer>
         <ColumnsContainer>
-          <Column>
+          <div>
             <EditableInput
               {...this.props}
               style={{
@@ -104,7 +96,7 @@ class ColorPicker extends React.Component {
                   borderColor: this.props.theme.backgroundColor2,
                   textAlign: 'center',
                   fontFamily: this.props.theme.displayFont,
-                  fontWeight: '300',
+                  fontWeight: '100',
                   fontSize: '16pt',
                   color: rotateGrey(this.props.color),
                   boxSizing: 'border-box',
@@ -114,9 +106,7 @@ class ColorPicker extends React.Component {
               value={this.props.color}
               onChange={this.props.onChange} />
             <Apply onClick={this.props.handleClick}>APPLY COLOR</Apply>
-          </Column>
-          <Column>
-          </Column>
+          </div>
         </ColumnsContainer>
       </div>
 

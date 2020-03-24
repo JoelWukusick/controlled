@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import SignUp from './signUp.jsx';
 
 
 const HeaderContainer = styled.div`
@@ -10,13 +11,12 @@ const HeaderContainer = styled.div`
 `
 
 const TitleContainer = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
-  font-weight: 300;
   color: ${props => props.theme.backgroundColor1};
   padding: .4% 2%;
   font-size: 32px;
-  font-family: ${props => props.theme.displayFont};
-`
+  font-weight: 100;
+  font-family: 'Roboto';
+  `
 
 const NavContainer = styled.ul`
   list-style: none;
@@ -41,9 +41,9 @@ function Header() {
           ControlLED
       </TitleContainer>
         <NavContainer>
-          <ListItem>instructions</ListItem>
-          <ListItem>sign up</ListItem>
-          <ListItem>sign in</ListItem>
+          {/* <ListItem>instructions</ListItem>
+          <SignUp />
+          <ListItem>sign in</ListItem> */}
         </NavContainer>
       </HeaderContainer>
 

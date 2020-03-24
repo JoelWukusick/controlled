@@ -7,7 +7,7 @@ const FadeControlsContainer = styled.div`
   padding: 0px 0px 4%;
   border-width: 2px 0px;
   border-style: solid;
-  border-color: ${props => props.theme.colorMedium}
+  border-color: ${props => props.theme.colorMedium};
 `
 
 const FadePatterns = styled.form`
@@ -47,13 +47,13 @@ const PatternImage = styled.img`
 
 const OptionsLabel = styled.p`
   font-family: ${props => props.theme.displayFont};
-  font-weight: 300;
+  font-weight: 100;
+  font-size: 14pt;
   display: block;
   margin-bottom: 2%;
 `
 
 const Apply = styled.button`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
   position: relative;
   width: 35%;
   margin-top: 2%;
@@ -62,8 +62,13 @@ const Apply = styled.button`
   text-align: center;
   font-family: ${props => props.theme.displayFont};
   font-size: 12pt;
-  font-weight: 300;
+  font-weight: 100;
   color: ${props => props.theme.colorDark};
+`
+const Balanced = styled.label`
+  font-family: ${props => props.theme.displayFont};
+  font-weight: 100;
+  font-size: 14pt;
 `
 
 function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, direction, selected, n }) {
@@ -96,7 +101,7 @@ function FadeControls({ handleFade, handleChange, handleSelect, fadeColors, dire
         })}
       </FadeColors>
       <input onChange={handleChange} type='checkbox' name='balanced' />
-      <label>BALANCED</label><br></br>
+      <Balanced>BALANCED</Balanced><br></br>
       <Apply onClick={() => { handleFade(fade[direction]) }}>APPLY FADE</Apply>
     </FadeControlsContainer >
   )

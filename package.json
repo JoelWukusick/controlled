@@ -43,6 +43,7 @@
     "react-color": "^2.18.0",
     "react-dom": "^16.13.0",
     "react-simple-dropdown": "^3.2.3",
+    "simple-react-dropdown": "^3.3.0",
     "styled-components": "^5.0.1"
   },
   "nodemonConfig": {

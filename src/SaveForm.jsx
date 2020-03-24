@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const DesignNameLabel = styled.label`
   font-family: ${props => props.theme.displayFont};
-  font-weight: 300;
+  font-weight: 100;
   display: block;
 `
 
@@ -29,7 +29,7 @@ const Save = styled.input`
   text-align: center;
   font-family: ${props => props.theme.displayFont};
   font-size: 12pt;
-  font-weight: 300;
+  font-weight: 100;
   color: ${props => props.theme.colorDark};
 `
 
