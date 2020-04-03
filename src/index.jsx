@@ -7,6 +7,7 @@ import Matrix from './Matrix.jsx';
 import ControlPanel from './ControlPanel.jsx';
 import SaveForm from './SaveForm.jsx';
 import SavedDesigns from './SavedDesigns.jsx';
+import SignIn from './signIn.jsx';
 const axios = require('axios').default;
 
 
@@ -194,4 +195,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<SignIn />, document.getElementById('app'))
