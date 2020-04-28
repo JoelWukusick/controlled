@@ -34,7 +34,7 @@ class App extends React.Component {
         direction: 'N',
         fadeColors: ['#ffffff', '#ffffff', null, null],
         name: null,
-        colors: this.generateColorData(this.n, '#ffffff')
+        colors: this.generateColorData(this.n, '#005565')
       },
       user: {
         name: null,
@@ -120,6 +120,7 @@ class App extends React.Component {
       let setting = state.setting;
       setting.name = design.name;
       setting.colors = design.colors;
+      axios.post('http://192.168.0.113/', setting.colors);
       return { setting };
     })
   }
@@ -129,6 +130,7 @@ class App extends React.Component {
     this.setState((state) => {
       let setting = state.setting;
       setting.colors = newColors;
+      axios.post('http://192.168.0.113/', setting.colors);
       return { setting };
     })
   }
@@ -138,10 +140,17 @@ class App extends React.Component {
     return (axios('/api' + user))
   }
 
+  connectLedPanel() {
+    // return (axios('http://192.168.0.215/currentsetting'))
+  }
+
   componentDidMount() {
-    this.getDesigns()
-      .then(res => this.setState({ savedDesigns: res.data }))
-      .catch(err => console.log(err));
+  //   this.connectLedPanel()
+  //     .then(res => console.log(res))
+  //     .catch(err => console.log(err));
+  //   this.getDesigns()
+  //     .then(res => this.setState({ savedDesigns: res.data }))
+  //     .catch(err => console.log(err));
   }
 
   render() {
@@ -195,4 +204,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<SignIn />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'))

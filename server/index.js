@@ -1,10 +1,14 @@
-const express = require('express')
-const app = express()
-const port = 4000
-const API = require('./API')
-var bodyParser = require('body-parser')
+const express = require('express');
+const port = 3000;
+const API = require('./API');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser);
 app.use('/api', API);
 app.use('/', express.static('dist'))
 

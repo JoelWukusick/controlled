@@ -24,36 +24,40 @@
   },
   "homepage": "https://github.com/JoelWukusick/hrr43-mvp#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
-    "@babel/preset-react": "^7.8.3",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
     "babel-cli": "^6.26.0",
-    "babel-loader": "^8.0.6",
-    "nodemon": "^2.0.2",
-    "webpack": "^4.41.6",
+    "babel-loader": "^8.1.0",
+    "nodemon": "^2.0.3",
+    "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "npx": "^10.2.2",
     "pg": "^7.18.2",
-    "pm2": "^4.2.3",
+    "pm2": "^4.4.0",
     "react": "^16.13.1",
     "react-color": "^2.18.0",
-    "react-dom": "^16.13.0",
+    "react-dom": "^16.13.1",
     "react-simple-dropdown": "^3.2.3",
     "simple-react-dropdown": "^3.3.0",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.1.0"
   },
   "nodemonConfig": {
     "ignore": [
       "src",
       "dist",
       "node_modules",
-      ".vscode"
+      ".vscode",
+      "arduino"
     ]
   }
 }

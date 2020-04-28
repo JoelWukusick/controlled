@@ -33,7 +33,6 @@ function Matrix({ n, theme, handleSelect, selected, colors, thumbnail }) {
               key={i.toString()}
               i={i}
               color={color}
-              // handleSelect={thumbnail ? null : handleSelect}
               handleSelect={thumbnail ? null : handleSelect}
               selected={selected} />
           )

@@ -46,6 +46,7 @@ client
     return controlLEDClient.query(
       `CREATE TABLE designs (
         id SERIAL NOT NULL PRIMARY KEY ,
+        user_id INTEGER REFERENCES users(id),
         name TEXT NOT NULL,
         colors TEXT []
     )`);
