@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(cookieParser);
+app.use(cookieParser());
 app.use('/api', API);
 app.use('/', express.static('dist'))
 

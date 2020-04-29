@@ -25,6 +25,7 @@ class App extends React.Component {
     this.emptySelectedSet = this.generateColorData(this.n, false);
     this.handleSelectSaved = this.handleSelectSaved.bind(this);
     this.handleFade = this.handleFade.bind(this);
+    this.localIP = 'http://192.168.0.113/';
     this.state = {
       color: '#337475',
       selected: this.emptySelectedSet,
@@ -68,6 +69,9 @@ class App extends React.Component {
       let setting = state.setting;
       setting.colors = newColors;
       setting.fadeColors = newFadeColors;
+      if(state.selected.includes(true)){
+        axios.post(this.localIP, setting.colors);
+      }
       return { setting, selected: this.generateColorData(this.n, false), fadeColorsSelected: [false, false, false, false] };
     })
   }
@@ -120,7 +124,7 @@ class App extends React.Component {
       let setting = state.setting;
       setting.name = design.name;
       setting.colors = design.colors;
-      axios.post('http://192.168.0.113/', setting.colors);
+      axios.post(this.localIP, setting.colors);
       return { setting };
     })
   }
@@ -130,7 +134,7 @@ class App extends React.Component {
     this.setState((state) => {
       let setting = state.setting;
       setting.colors = newColors;
-      axios.post('http://192.168.0.113/', setting.colors);
+      axios.post(this.localIP, setting.colors);
       return { setting };
     })
   }
@@ -148,9 +152,9 @@ class App extends React.Component {
   //   this.connectLedPanel()
   //     .then(res => console.log(res))
   //     .catch(err => console.log(err));
-  //   this.getDesigns()
-  //     .then(res => this.setState({ savedDesigns: res.data }))
-  //     .catch(err => console.log(err));
+    this.getDesigns()
+      .then(res => this.setState({ savedDesigns: res.data }))
+      .catch(err => console.log(err));
   }
 
   render() {
