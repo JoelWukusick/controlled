@@ -13,14 +13,13 @@ client.connect()
   .catch(err => console.log(err));
 
 module.exports = {
-  getUserPresets: function () {
-    return (client.query('SELECT * FROM designs ORDER BY id DESC LIMIT 6'));
-
-    // }
+  getUserPresets: function (user) {
+    console.log(user)
+    return (client.query(`SELECT * FROM designs WHERE user_id = 1 LIMIT 6`))
   },
   insertDesign: function (user, data) {
-    return (
-      client.query('INSERT INTO designs (name, colors) VALUES ($1, $2)', [data.name, data.colors])
+    return client.query(
+      `INSERT INTO designs (user_id, name, colors, balanced, direction, fadecolors) VALUES ((SELECT id from users WHERE username= $1 ), $2, $3, $4, $5, $6);`, [user, data.name, data.colors, data.balanced, data.direction, data.fadeColors]
     )
   }
 }

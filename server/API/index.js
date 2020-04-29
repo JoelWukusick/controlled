@@ -4,15 +4,16 @@ const db = require('../../database/index.js');
 API.get('/', (req, res) => {
   res.status(200).send('connected to API');
 });
-API.get('/:user', (req, res) => {
-  db.getUserPresets()
+API.get('/:user/designs', (req, res) => {
+  db.getUserPresets(req.params.user)
     .then(data => res.send(data.rows))
     .catch(err => console.log(err));
 });
-API.post('/:user', (req, res) => {
+API.post('/:user/designs', (req, res) => {
+  console.log(req.body)
   db.insertDesign(req.params.user, req.body)
-    .then(result => {res.send(result)})
-    .catch(err => res.send(err))
-})
+    .then(result => { res.send(result) })
+    .catch(err => res.send(err));
+});
 
 module.exports = API;

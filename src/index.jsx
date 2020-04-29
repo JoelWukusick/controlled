@@ -38,7 +38,7 @@ class App extends React.Component {
         colors: this.generateColorData(this.n, '#005565')
       },
       user: {
-        name: null,
+        name: 'demo',
         settings: null
       },
       savedDesigns: []
@@ -109,7 +109,7 @@ class App extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let user = '/' + this.state.user.name;
-    axios.post('/api' + user, this.state.setting)
+    axios.post(`/api/${this.state.user.name}/designs`, this.state.setting)
       .then(() => {
         return (this.getDesigns())
       })
@@ -141,7 +141,7 @@ class App extends React.Component {
 
   getDesigns() {
     let user = '/' + this.state.user.name;
-    return (axios('/api' + user))
+    return (axios(`/api/${this.state.user.name}/designs`))
   }
 
   connectLedPanel() {

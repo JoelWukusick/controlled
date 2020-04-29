@@ -36,9 +36,10 @@ client
     return controlLEDClient.query(
       `CREATE TABLE users (
         id SERIAL NOT NULL PRIMARY KEY ,
-        username VARCHAR(40) UNIQUE,
-        password VARCHAR(64),
-        salt VARCHAR(64)
+        username VARCHAR(16) UNIQUE,
+        password VARCHAR(255),
+        salt VARCHAR(255),
+        localIP INET
     )`);
   })
   .then(() => {
@@ -46,9 +47,12 @@ client
     return controlLEDClient.query(
       `CREATE TABLE designs (
         id SERIAL NOT NULL PRIMARY KEY ,
-        user_id INTEGER REFERENCES users(id),
-        name TEXT NOT NULL,
-        colors TEXT []
+        name VARCHAR(32) NOT NULL,
+        colors VARCHAR(7) [],
+        balanced BOOL,
+        direction VARCHAR(2),
+        fadeColors VARCHAR(7) [],
+        user_id INTEGER REFERENCES users(id)
     )`);
   })
   .then(() => {
