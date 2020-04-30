@@ -36,9 +36,9 @@ client
     return controlLEDClient.query(
       `CREATE TABLE users (
         id SERIAL NOT NULL PRIMARY KEY ,
-        username VARCHAR(16) UNIQUE,
-        password VARCHAR(255),
-        salt VARCHAR(255),
+        username VARCHAR(40) UNIQUE,
+        password VARCHAR(64),
+        salt VARCHAR(32),
         localIP INET
     )`);
   })
@@ -57,6 +57,15 @@ client
   })
   .then(() => {
     console.log('table \'designs\' created');
+    return controlLEDClient.query(
+      `CREATE TABLE sessions (
+        id SERIAL NOT NULL PRIMARY KEY ,
+        hash varchar(32),
+        user_id INTEGER REFERENCES users(id)
+    )`);
+  })
+  .then(() => {
+    console.log('table \'sessions\' created');
     return controlLEDClient.end();
   })
   .catch((err) => console.log(err));
