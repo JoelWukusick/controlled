@@ -1,14 +1,12 @@
 const express = require('express');
 const port = 3000;
-const API = require('./API');
+const API = require('./api.js');
 const auth = require('./auth.js');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 const app = express();
 
-app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(auth.createSession);

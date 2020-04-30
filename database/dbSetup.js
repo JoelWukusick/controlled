@@ -37,8 +37,7 @@ client
       `CREATE TABLE users (
         id SERIAL NOT NULL PRIMARY KEY ,
         username VARCHAR(40) UNIQUE,
-        password VARCHAR(64),
-        salt VARCHAR(32),
+        password VARCHAR(60),
         localIP INET
     )`);
   })

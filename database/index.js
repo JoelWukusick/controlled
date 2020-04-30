@@ -17,16 +17,24 @@ const parseOptions = (options) => {
 }
 
 module.exports = {
-  createUser: () => { },
-  getUser: () => { },
-  getSession: (data) => {
-    let key = Object.keys(data)[0];
-    return (client.query(`SELECT * FROM sessions WHERE ${key} = $1`, [data[key]]))
+  createUser: ({username, password}) => {
+    return (client.query(`INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id`, [username, password]));
   },
-  createNewSession: (hash) => {
+  getUser: (data) => {
+    let key = Object.keys(data)[0];
+    return (client.query(`SELECT * FROM users WHERE ${key} = $1`, [data[key]]));
+  },
+  getSession: data => {
+    let key = Object.keys(data)[0];
+    return (client.query(`SELECT * FROM sessions WHERE ${key} = $1`, [data[key]]));
+  },
+  createNewSession: hash => {
     return (client.query(`INSERT INTO sessions (hash) VALUES ($1) RETURNING id`, [hash]));
   },
-  getUserPresets: (user) => {
+  updateSession: ({userId, sessionId}) => {
+    return (client.query(`UPDATE sessions SET user_id = $1 WHERE id = $2`, [userId, sessionId]));
+  },
+  getUserPresets: user => {
     return (client.query(`SELECT * FROM designs WHERE user_id = (SELECT id FROM users WHERE username = $1) LIMIT 6`, [user]));
   },
   insertDesign: (user, data) => {
