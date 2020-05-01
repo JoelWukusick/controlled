@@ -42,10 +42,7 @@ class App extends React.Component {
         name: null,
         colors: this.generateColorData(this.n, '#005565')
       },
-      user: {
-        name: 'demo',
-        settings: null
-      },
+      username: 'demo',
       savedDesigns: []
     }
   };
@@ -112,10 +109,10 @@ class App extends React.Component {
 
   handleSubmitDesign(e) {
     e.preventDefault();
-    let user = '/' + this.state.user.name;
-    axios.post(`/api/${this.state.user.name}/designs`, this.state.setting)
+    let user = '/' + this.state.username;
+    axios.post(`/api/${this.state.username}/designs`, this.state.setting)
       .then(() => {
-        return (this.getDesigns())
+        return (this.getDesigns(this.state.username))
       })
       .then(res => {
         this.setState({ savedDesigns: res.data })
@@ -143,9 +140,8 @@ class App extends React.Component {
     })
   }
 
-  getDesigns() {
-    let user = '/' + this.state.user.name;
-    return (axios(`/api/${this.state.user.name}/designs`))
+  getDesigns(username) {
+    return (axios(`/api/${username}/designs`))
   }
 
   connectLedPanel() {
@@ -156,7 +152,7 @@ class App extends React.Component {
     //   this.connectLedPanel()
     //     .then(res => console.log(res))
     //     .catch(err => console.log(err));
-    this.getDesigns()
+    this.getDesigns(this.state.username)
       .then(res => this.setState({ savedDesigns: res.data }))
       .catch(err => console.log(err));
   }
@@ -170,12 +166,18 @@ class App extends React.Component {
   handleSubmit(e, data, form) {
     e.preventDefault();
     axios.post(`/api/${form}`, data)
-    .then(res => {
-      this.toggle(form);
-    })
-    .catch(err => {
-      window.alert(err.response.data);
-    })
+      .then(res => {
+        this.toggle(form);
+        console.log(res.data.username)
+        this.setState({ username: res.data.username })
+        this.getDesigns(res.data.username)
+        .then((res) => {
+          this.setState({ savedDesigns: res.data })
+        })
+      })
+      .catch(err => {
+        window.alert(err.response.data);
+      })
   }
 
   render() {
@@ -183,7 +185,7 @@ class App extends React.Component {
       <ThemeProvider theme={theme}>
         <Win>
           <Header toggle={this.toggle} />
-          <SignUp show={this.state.signUp} toggle={this.toggle} handleSubmit={this.handleSubmit}/>
+          <SignUp show={this.state.signUp} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Login show={this.state.login} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Pad>
             <Content>

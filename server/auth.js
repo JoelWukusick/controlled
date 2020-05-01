@@ -62,7 +62,7 @@ module.exports = {
           })
       })
   },
-  verifySession: (req) => {
+  verifySession: (req, res, next) => {
     if (!req.session.user) {
       res.status(401).send();
     } else {

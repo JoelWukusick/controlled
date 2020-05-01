@@ -35,7 +35,6 @@ module.exports = {
     return (client.query(`UPDATE sessions SET user_id = $1 WHERE hash = $2`, [userId, hash]));
   },
   getUserPresets: user => {
-    console.log(user)
     return (client.query(`SELECT * FROM designs WHERE user_id = (SELECT id FROM users WHERE username = $1) LIMIT 6`, [user]));
   },
   insertDesign: (user, data) => {

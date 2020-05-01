@@ -16,12 +16,12 @@ API.post('/demo/designs', (req, res) => {
     .then(result => { res.send(result) })
     .catch(err => res.send(err));
 });
-API.get('/:user/designs', (req, res) => {
+API.get('/:user/designs', auth.verifySession, (req, res) => {
   db.getUserPresets(req.params.user)
     .then(data => { res.send(data.rows) })
     .catch(err => console.log(err));
 });
-API.post('/:user/designs', (req, res) => {
+API.post('/:user/designs', auth.verifySession, (req, res) => {
   db.insertDesign(req.params.user, req.body)
     .then(result => { res.send(result) })
     .catch(err => res.send(err));
@@ -30,7 +30,7 @@ API.post('/signup', (req, res) => {
   db.getUser({ username: req.body.username })
     .then(results => {
       if (results.rows[0]) {
-        res.status(409).send();
+        res.status(409).send('Username already used.');
       } else {
         return auth.createUser(req.body)
           .then(userId => {
@@ -39,7 +39,7 @@ API.post('/signup', (req, res) => {
       }
     })
     .then(() => {
-      res.status(201).send('new user created')
+      res.status(201).send({ username: req.body.username })
     })
     .catch((err) => {
       res.status(500).send();
@@ -65,7 +65,7 @@ API.post('/login', (req, res) => {
         })
     })
     .then(results => {
-      res.status(200).send('success')
+      res.status(200).send({ username: req.body.username })
     })
     .catch(err => {
       console.log(err)
