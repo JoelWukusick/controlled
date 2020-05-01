@@ -6,6 +6,16 @@ const bcrypt = require('bcrypt');
 API.get('/', (req, res) => {
   res.status(200).send('connected to API');
 });
+API.get('/demo/designs', (req, res) => {
+  db.getUserPresets('demo')
+    .then(data => { res.send(data.rows) })
+    .catch(err => console.log(err));
+});
+API.post('/demo/designs', (req, res) => {
+  db.insertDesign('demo', req.body)
+    .then(result => { res.send(result) })
+    .catch(err => res.send(err));
+});
 API.get('/:user/designs', (req, res) => {
   db.getUserPresets(req.params.user)
     .then(data => { res.send(data.rows) })
@@ -47,16 +57,14 @@ API.post('/login', (req, res) => {
     .then((user) => {
       return bcrypt.compare(req.body.password, user.password)
         .then(valid => {
-          console.log('valid: ', valid)
           if (!valid) {
             throw 'Incorrect Password';
           } else {
             return db.updateSession({ userId: user.id, hash: req.session.hash });
           }
-        });
+        })
     })
     .then(results => {
-      console.log('results', results)
       res.status(200).send('success')
     })
     .catch(err => {

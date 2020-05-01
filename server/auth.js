@@ -2,6 +2,23 @@ const db = require('../database/index.js');
 const randomBytes = require('random-bytes');
 const bcrypt = require('bcrypt');
 
+getSession = (data) => {
+  return db.getSession(data)
+    .then(session => {
+      session = session.rows[0];
+      if (!session || !session.user_id) {
+        return session;
+      }
+      return db.getUser({ id: session.user_id })
+        .then(user => {
+          user = user.rows[0];
+          session.user = user;
+          return session;
+        });
+    })
+
+}
+
 createNewSession = () => {
   return randomBytes(16)
     .then(buffer => {
@@ -9,10 +26,7 @@ createNewSession = () => {
       return db.createNewSession(hash);
     })
     .then(result => {
-      return db.getSession({ id: result.rows[0].id })
-        .then(result => {
-          return result.rows[0];
-        })
+      return getSession({ id: result.rows[0].id })
     })
 };
 
@@ -23,9 +37,9 @@ module.exports = {
         if (!hash) {
           return createNewSession();
         } else {
-          return db.getSession({ hash })
+          return getSession({ hash })
             .then(result => {
-              return result.rows[0] ? result.rows[0] : createNewSession();
+              return result ? result : createNewSession();
             })
         }
       })
@@ -49,7 +63,7 @@ module.exports = {
       })
   },
   verifySession: (req) => {
-    if (!req.session) {
+    if (!req.session.user) {
       res.status(401).send();
     } else {
       next();
