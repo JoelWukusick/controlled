@@ -6,6 +6,13 @@ const bcrypt = require('bcrypt');
 API.get('/', (req, res) => {
   res.status(200).send('connected to API');
 });
+API.get('/user', (req, res) => {
+  if(req.session.user){
+    res.status(200).send({ username: req.session.user.username, localIp: req.session.user.localIp });
+  } else {
+    res.status(404).send();
+  }
+});
 API.get('/demo/designs', (req, res) => {
   db.getUserPresets('demo')
     .then(data => { res.send(data.rows) })

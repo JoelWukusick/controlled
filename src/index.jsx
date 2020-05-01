@@ -149,14 +149,6 @@ class App extends React.Component {
     // return (axios('http://192.168.0.215/currentsetting'))
   }
 
-  componentDidMount() {
-    //   this.connectLedPanel()
-    //     .then(res => console.log(res))
-    //     .catch(err => console.log(err));
-    this.getDesigns(this.state.username)
-      .catch(err => console.log(err));
-  }
-
   toggle(form) {
     this.setState({
       [form]: !this.state[form]
@@ -186,6 +178,25 @@ class App extends React.Component {
         this.setState({ username: 'demo' });
         window.alert(err)
       })
+  }
+
+  componentDidMount() {
+    //   this.connectLedPanel()
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err));
+    axios.get('/api/user')
+      .then(user => {
+        if (user.data.username) {
+          this.setState({ username: user.data.username })
+          this.getDesigns(user.data.username);
+        } else {
+          this.getDesigns('demo')
+        }
+      })
+      .catch(() => {
+        this.setState({username: 'demo'});
+        this.getDesigns('demo')
+      });
   }
 
   render() {
