@@ -22,6 +22,7 @@ const InputText = styled.input`
 `
 
 const Save = styled.input`
+  cursor: pointer;
   display: block;
   position: relative;
   width: 100%;

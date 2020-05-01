@@ -42,6 +42,7 @@ const FadePatternContainer = styled.div`
 `
 
 const PatternImage = styled.img`
+  cursor: pointer;
   max-width: 100%;
 `
 
@@ -54,6 +55,7 @@ const OptionsLabel = styled.p`
 `
 
 const Apply = styled.button`
+  cursor: pointer;
   position: relative;
   width: 35%;
   margin-top: 2%;

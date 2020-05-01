@@ -8,6 +8,7 @@ const NavContainer = styled.ul`
 `
 
 const ListItem = styled.li`
+  cursor: pointer;
   padding: 0px 25px;
   font-family: ${props => props.theme.displayFont};
   font-weight: 200;
@@ -15,8 +16,7 @@ const ListItem = styled.li`
   font-size: 20px;
 `
 
-function Menu({ toggle, user }) {
-  console.log(user)
+function Menu({ toggle, user, logout }) {
   if (user === 'demo') {
     return (
       <NavContainer>
@@ -28,7 +28,7 @@ function Menu({ toggle, user }) {
   } else {
     return (
       <NavContainer>
-        <ListItem onClick={() => toggle('logout')}> Log out</ListItem>
+        <ListItem onClick={logout}> Log out</ListItem>
       </NavContainer>
     )
   }

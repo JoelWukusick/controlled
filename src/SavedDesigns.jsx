@@ -4,6 +4,7 @@ import Matrix from './Matrix.jsx';
 
 const DesignsDisplay = styled.div`
   padding: 10%;
+  cursor: pointer;
 `
 
 const DesignName = styled.div`

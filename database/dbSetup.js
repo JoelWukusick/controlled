@@ -64,6 +64,11 @@ client
     )`);
   })
   .then(() => {
+    return controlLEDClient.query(
+      `INSERT INTO users (username) VALUES ('demo')`
+    );
+  })
+  .then(() => {
     console.log('table \'sessions\' created');
     return controlLEDClient.end();
   })

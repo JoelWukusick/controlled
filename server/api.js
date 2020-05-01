@@ -34,7 +34,7 @@ API.post('/signup', (req, res) => {
       } else {
         return auth.createUser(req.body)
           .then(userId => {
-            return db.updateSession({ userId, hash: req.session.hash })
+            return db.updateSession({ userId, id: req.session.id })
           })
       }
     })
@@ -49,7 +49,7 @@ API.post('/login', (req, res) => {
   db.getUser({ username: req.body.username })
     .then(results => {
       if (!results.rows[0]) {
-        throw 'Could\'t find user';
+        throw 'Couldn\'t find user.';
       } else {
         return results.rows[0];
       }
@@ -58,19 +58,30 @@ API.post('/login', (req, res) => {
       return bcrypt.compare(req.body.password, user.password)
         .then(valid => {
           if (!valid) {
-            throw 'Incorrect Password';
+            throw 'Incorrect Password.';
           } else {
-            return db.updateSession({ userId: user.id, hash: req.session.hash });
+            res.body = { username: user.username, localIp: user.localIp }
+            return db.updateSession({ userId: user.id, id: req.session.id })
+              .then(results => res.status(201).send({ username: user.username, localIp: user.localIp }))
           }
         })
-    })
-    .then(results => {
-      res.status(200).send({ username: req.body.username })
     })
     .catch(err => {
       console.log(err)
       res.status(401).send(err);
     })
 });
+
+API.post('/logout', (req, res) => {
+  db.updateSession({ userId: null, id: req.session.id })
+    .then(() => {
+      req.session.user_id = null;
+      req.session.user = null;
+      res.status(201).send();
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+})
 
 module.exports = API;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Box = styled.li`
+  cursor: pointer;
   list-style: none;
   border-style: solid;
   border-width: ${props => props.selected ? '2px' : '2px'};

@@ -31,8 +31,8 @@ module.exports = {
   createNewSession: hash => {
     return (client.query(`INSERT INTO sessions (hash) VALUES ($1) RETURNING id`, [hash]));
   },
-  updateSession: ({userId, hash}) => {
-    return (client.query(`UPDATE sessions SET user_id = $1 WHERE hash = $2`, [userId, hash]));
+  updateSession: ({userId, id}) => {
+    return (client.query(`UPDATE sessions SET user_id = $1 WHERE id = $2`, [userId, id]));
   },
   getUserPresets: user => {
     return (client.query(`SELECT * FROM designs WHERE user_id = (SELECT id FROM users WHERE username = $1) LIMIT 6`, [user]));

@@ -20,14 +20,14 @@ const TitleContainer = styled.div`
 
 
 
-function Header({ toggle, user }) {
+function Header({ toggle, user, logout }) {
   return (
     <div>
       <HeaderContainer>
         <TitleContainer>
           ControlLED
         </TitleContainer>
-        <Menu toggle={toggle} user={user} />
+        <Menu toggle={toggle} user={user} logout={logout} />
       </HeaderContainer>
     </div>
   )

@@ -23,13 +23,14 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitDesign = this.handleSubmitDesign.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.logout = this.logout.bind(this);
     this.getDesigns = this.getDesigns.bind(this);
     this.emptySelectedSet = this.generateColorData(this.n, false);
     this.handleSelectSaved = this.handleSelectSaved.bind(this);
     this.handleFade = this.handleFade.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.localIP = 'http://192.168.0.113/';
     this.state = {
+      localIP: 'http://192.168.0.113/',
       signUp: false,
       login: false,
       color: '#337475',
@@ -71,7 +72,7 @@ class App extends React.Component {
       setting.colors = newColors;
       setting.fadeColors = newFadeColors;
       if (state.selected.includes(true)) {
-        axios.post(this.localIP, setting.colors);
+        axios.post(this.state.localIP, setting.colors);
       }
       return { setting, selected: this.generateColorData(this.n, false), fadeColorsSelected: [false, false, false, false] };
     })
@@ -114,9 +115,6 @@ class App extends React.Component {
       .then(() => {
         return (this.getDesigns(this.state.username))
       })
-      .then(res => {
-        this.setState({ savedDesigns: res.data })
-      })
       .catch(err => console.log(err));
   }
 
@@ -142,6 +140,9 @@ class App extends React.Component {
 
   getDesigns(username) {
     return (axios(`/api/${username}/designs`))
+      .then((res) => {
+        this.setState({ savedDesigns: res.data })
+      })
   }
 
   connectLedPanel() {
@@ -153,7 +154,6 @@ class App extends React.Component {
     //     .then(res => console.log(res))
     //     .catch(err => console.log(err));
     this.getDesigns(this.state.username)
-      .then(res => this.setState({ savedDesigns: res.data }))
       .catch(err => console.log(err));
   }
 
@@ -168,14 +168,23 @@ class App extends React.Component {
     axios.post(`/api/${form}`, data)
       .then(res => {
         this.toggle(form);
-        this.setState({ username: res.data.username })
-        this.getDesigns(res.data.username)
-        .then((res) => {
-          this.setState({ savedDesigns: res.data })
-        })
+        this.setState({ username: res.data.username, localIP: res.data.localIP });
+        this.getDesigns(res.data.username);
       })
       .catch(err => {
         window.alert(err.response.data);
+      })
+  }
+
+  logout() {
+    axios.post('/api/logout')
+      .then(() => {
+        this.setState({ username: 'demo' });
+        this.getDesigns('demo');
+      })
+      .catch(err => {
+        this.setState({ username: 'demo' });
+        window.alert(err)
       })
   }
 
@@ -183,7 +192,7 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <Win>
-          <Header user={this.state.username} toggle={this.toggle} />
+          <Header user={this.state.username} toggle={this.toggle} logout={this.logout} />
           <SignUp show={this.state.signUp} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Login show={this.state.login} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Pad>

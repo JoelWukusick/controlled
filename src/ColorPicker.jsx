@@ -34,6 +34,7 @@ const HueContainer = styled.div`
 `
 
 const Apply = styled.button`
+  cursor: pointer;
   position: relative;
   width: 100%;
   margin-top: 4%;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Box = styled.div`
+  cursor: pointer;
   height: 0px;
   padding-top: ${props => props.thumbnail ? '100%' : '90%'};
   border-style: ${props => props.selected[props.i] ? 'dashed' : 'solid'};
