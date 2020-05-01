@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SignUp from './signUp.jsx';
+import Menu from './menu.jsx';
 
 
 const HeaderContainer = styled.div`
@@ -18,34 +18,17 @@ const TitleContainer = styled.div`
   font-family: ${props => props.theme.displayFont};
   `
 
-const NavContainer = styled.ul`
-  list-style: none;
-  display: flex;
-  margin: auto 3% auto auto;
-`
-
-const ListItem = styled.li`
-  padding: 0px 25px;
-  font-family: ${props => props.theme.displayFont};
-  font-weight: 200;
-  color: ${props => props.theme.backgroundColor1};
-  font-size: 20px;
-`
 
 
-function Header({ toggle }) {
+function Header({ toggle, user }) {
   return (
     <div>
       <HeaderContainer>
         <TitleContainer>
           ControlLED
-      </TitleContainer>
-        <NavContainer>
-          <ListItem onClick={() => toggle('signUp')}> Sign up</ListItem>
-          <ListItem onClick={() => toggle('login')}>Log in</ListItem>
-        </NavContainer>
+        </TitleContainer>
+        <Menu toggle={toggle} user={user} />
       </HeaderContainer>
-
     </div>
   )
 }

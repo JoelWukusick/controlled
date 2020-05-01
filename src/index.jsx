@@ -168,7 +168,6 @@ class App extends React.Component {
     axios.post(`/api/${form}`, data)
       .then(res => {
         this.toggle(form);
-        console.log(res.data.username)
         this.setState({ username: res.data.username })
         this.getDesigns(res.data.username)
         .then((res) => {
@@ -184,7 +183,7 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <Win>
-          <Header toggle={this.toggle} />
+          <Header user={this.state.username} toggle={this.toggle} />
           <SignUp show={this.state.signUp} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Login show={this.state.login} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Pad>
