@@ -7,7 +7,8 @@ import Matrix from './Matrix.jsx';
 import ControlPanel from './ControlPanel.jsx';
 import SaveForm from './SaveForm.jsx';
 import SavedDesigns from './SavedDesigns.jsx';
-import SignIn from './signIn.jsx';
+import Login from './login.jsx';
+import SignUp from './signUp.jsx';
 const axios = require('axios').default;
 
 
@@ -20,13 +21,17 @@ class App extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitDesign = this.handleSubmitDesign.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getDesigns = this.getDesigns.bind(this);
     this.emptySelectedSet = this.generateColorData(this.n, false);
     this.handleSelectSaved = this.handleSelectSaved.bind(this);
     this.handleFade = this.handleFade.bind(this);
+    this.toggle = this.toggle.bind(this);
     this.localIP = 'http://192.168.0.113/';
     this.state = {
+      signUp: false,
+      login: false,
       color: '#337475',
       selected: this.emptySelectedSet,
       fadeColorsSelected: [false, false, false, false],
@@ -54,7 +59,6 @@ class App extends React.Component {
   }
 
   handleDrag(color, e) {
-    if (!color) { console.log(e.target.value); }
     this.setState({ color: color.hex })
   }
 
@@ -69,7 +73,7 @@ class App extends React.Component {
       let setting = state.setting;
       setting.colors = newColors;
       setting.fadeColors = newFadeColors;
-      if(state.selected.includes(true)){
+      if (state.selected.includes(true)) {
         axios.post(this.localIP, setting.colors);
       }
       return { setting, selected: this.generateColorData(this.n, false), fadeColorsSelected: [false, false, false, false] };
@@ -106,7 +110,7 @@ class App extends React.Component {
     })
   }
 
-  handleSubmit(e) {
+  handleSubmitDesign(e) {
     e.preventDefault();
     let user = '/' + this.state.user.name;
     axios.post(`/api/${this.state.user.name}/designs`, this.state.setting)
@@ -149,19 +153,38 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-  //   this.connectLedPanel()
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err));
+    //   this.connectLedPanel()
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err));
     this.getDesigns()
       .then(res => this.setState({ savedDesigns: res.data }))
       .catch(err => console.log(err));
+  }
+
+  toggle(form) {
+    this.setState({
+      [form]: !this.state[form]
+    })
+  }
+
+  handleSubmit(e, data, form) {
+    e.preventDefault();
+    axios.post(`/api/${form}`, data)
+    .then(res => {
+      this.toggle(form);
+    })
+    .catch(err => {
+      window.alert(err.response.data);
+    })
   }
 
   render() {
     return (
       <ThemeProvider theme={theme}>
         <Win>
-          <Header />
+          <Header toggle={this.toggle} />
+          <SignUp show={this.state.signUp} toggle={this.toggle} handleSubmit={this.handleSubmit}/>
+          <Login show={this.state.login} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Pad>
             <Content>
               <Column>
@@ -173,7 +196,7 @@ class App extends React.Component {
                     handleDrag={this.handleDrag}
                     handleClick={this.handleClick}
                     handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit}
+                    handleSubmit={this.handleSubmitDesign}
                     handleFade={this.handleFade}
                     handleSelect={this.handleSelect}
                     direction={this.state.setting.direction}

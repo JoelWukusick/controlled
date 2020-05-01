@@ -29,11 +29,11 @@ const ListItem = styled.li`
   font-family: ${props => props.theme.displayFont};
   font-weight: 200;
   color: ${props => props.theme.backgroundColor1};
-  font-size: 20pt;
+  font-size: 20px;
 `
 
 
-function Header() {
+function Header({ toggle }) {
   return (
     <div>
       <HeaderContainer>
@@ -41,9 +41,8 @@ function Header() {
           ControlLED
       </TitleContainer>
         <NavContainer>
-          {/* <ListItem>instructions</ListItem>
-          <SignUp />
-          <ListItem>sign in</ListItem> */}
+          <ListItem onClick={() => toggle('signUp')}> Sign up</ListItem>
+          <ListItem onClick={() => toggle('login')}>Log in</ListItem>
         </NavContainer>
       </HeaderContainer>
 

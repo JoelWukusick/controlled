@@ -1,6 +1,7 @@
 const API = require('express').Router();
 const db = require('./../database/index.js');
 const auth = require('./auth.js');
+const bcrypt = require('bcrypt');
 
 API.get('/', (req, res) => {
   res.status(200).send('connected to API');
@@ -16,24 +17,52 @@ API.post('/:user/designs', (req, res) => {
     .catch(err => res.send(err));
 });
 API.post('/signup', (req, res) => {
-  //check db for user
-  db.getUser({ username: req.query.username })
+  db.getUser({ username: req.body.username })
     .then(results => {
-      //if user exists, send response
       if (results.rows[0]) {
-        console.log(result.rows[0])
+        res.status(409).send();
       } else {
-        //create a user
-        return auth.createUser(req.query)
+        return auth.createUser(req.body)
           .then(userId => {
-            //insert user id into session using username and password
-            db.updateSession({ userId, sessionId: req.session.id })
+            return db.updateSession({ userId, hash: req.session.hash })
           })
       }
     })
     .then(() => {
       res.status(201).send('new user created')
-    });
-})
+    })
+    .catch((err) => {
+      res.status(500).send();
+    })
+});
+API.post('/login', (req, res) => {
+  db.getUser({ username: req.body.username })
+    .then(results => {
+      if (!results.rows[0]) {
+        throw 'Could\'t find user';
+      } else {
+        return results.rows[0];
+      }
+    })
+    .then((user) => {
+      return bcrypt.compare(req.body.password, user.password)
+        .then(valid => {
+          console.log('valid: ', valid)
+          if (!valid) {
+            throw 'Incorrect Password';
+          } else {
+            return db.updateSession({ userId: user.id, hash: req.session.hash });
+          }
+        });
+    })
+    .then(results => {
+      console.log('results', results)
+      res.status(200).send('success')
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(401).send(err);
+    })
+});
 
 module.exports = API;

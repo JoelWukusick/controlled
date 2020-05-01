@@ -18,7 +18,7 @@ createNewSession = () => {
 
 module.exports = {
   createSession: (req, res, next) => {
-    Promise.resolve(req.cookies.user_id)
+    Promise.resolve(req.cookies.session)
       .then(hash => {
         if (!hash) {
           return createNewSession();
@@ -30,7 +30,7 @@ module.exports = {
         }
       })
       .then(session => {
-        res.cookie('user_id', session.hash);
+        res.cookie('session', session.hash);
         req.session = session;
         next();
       });
@@ -47,5 +47,12 @@ module.exports = {
             return results.rows[0].id;
           })
       })
+  },
+  verifySession: (req) => {
+    if (!req.session) {
+      res.status(401).send();
+    } else {
+      next();
+    }
   }
 }
