@@ -21,35 +21,28 @@ const ButtonWrapper = styled.div`
   padding: 5px;
 `
 
-function Login({ handleSubmit, show, toggle }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+function IP({ handleSubmit, show, toggle }) {
+  const [ip, setIPAddress] = useState("");
 
   function validateForm() {
-    return username.length > 0 && password.length > 0;
+    var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    return (ip.match(ipformat))
   }
 
   return (
     <Overlay show={show}>
-      <Form onSubmit={e => handleSubmit(e, { username, password }, 'login')}>
+      <Form onSubmit={e => handleSubmit(e, { ip }, 'ip')}>
         <Hidden type="submit" />
         <Input
-          id='username'
-          placeholder='username'
+          id='ip'
+          placeholder='local IP'
           autoFocus
           type='text'
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-        <Input
-          id='password'
-          placeholder='password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          type="password"
+          value={ip}
+          onChange={e => setIPAddress(e.target.value)}
         />
         <ButtonWrapper>
-          <button onClick={() => toggle('login')}>cancel</button>
+          <button onClick={() => toggle('ip')}>cancel</button>
           <button disabled={!validateForm()} type="submit">submit</button>
         </ButtonWrapper>
       </Form>
@@ -57,4 +50,4 @@ function Login({ handleSubmit, show, toggle }) {
   )
 }
 
-export default Login;
+export default IP;

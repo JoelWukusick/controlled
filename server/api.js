@@ -7,8 +7,8 @@ API.get('/', (req, res) => {
   res.status(200).send('connected to API');
 });
 API.get('/user', (req, res) => {
-  if(req.session.user){
-    res.status(200).send({ username: req.session.user.username, localIp: req.session.user.localIp });
+  if (req.session.user) {
+    res.status(200).send({ username: req.session.user.username, localIP: req.session.user.localip });
   } else {
     res.status(404).send();
   }
@@ -67,9 +67,9 @@ API.post('/login', (req, res) => {
           if (!valid) {
             throw 'Incorrect Password.';
           } else {
-            res.body = { username: user.username, localIp: user.localIp }
+            res.body = { username: user.username, localIp: user.localIp };
             return db.updateSession({ userId: user.id, id: req.session.id })
-              .then(results => res.status(201).send({ username: user.username, localIp: user.localIp }))
+              .then(results => res.status(201).send({ username: user.username, localIp: user.localIp }));
           }
         })
     })
@@ -91,4 +91,17 @@ API.post('/logout', (req, res) => {
     })
 })
 
+API.post('/ip', (req, res) => {
+  db.updateIP({ IP: req.body.ip, id: req.session.user.id })
+    .then(() => {
+      return db.getUser({ id: req.session.user.id });
+    })
+    .then(user => {
+      res.status(201).send({ username: user.rows[0].username, localIP: user.rows[0].localip });
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(401).send(err);
+    })
+})
 module.exports = API;

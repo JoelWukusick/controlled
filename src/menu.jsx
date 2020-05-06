@@ -16,7 +16,7 @@ const ListItem = styled.li`
   font-size: 20px;
 `
 
-function Menu({ toggle, user, logout }) {
+function Menu({ toggle, user, logout, localIP }) {
   if (user === 'demo') {
     return (
       <NavContainer>
@@ -28,6 +28,8 @@ function Menu({ toggle, user, logout }) {
   } else {
     return (
       <NavContainer>
+        <ListItem onClick={() => toggle('ip')}>{localIP}</ListItem>
+        <ListItem onClick={() => toggle('designs')}> Designs</ListItem>
         <ListItem onClick={logout}> Log out</ListItem>
       </NavContainer>
     )

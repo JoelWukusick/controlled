@@ -9,6 +9,8 @@ import SaveForm from './SaveForm.jsx';
 import SavedDesigns from './SavedDesigns.jsx';
 import Login from './login.jsx';
 import SignUp from './signUp.jsx';
+import IP from './ip.jsx';
+import Designs from './designs.jsx';
 const axios = require('axios').default;
 
 
@@ -24,15 +26,18 @@ class App extends React.Component {
     this.handleSubmitDesign = this.handleSubmitDesign.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.logout = this.logout.bind(this);
+    this.keyFunction = this.keyFunction.bind(this);
     this.getDesigns = this.getDesigns.bind(this);
     this.emptySelectedSet = this.generateColorData(this.n, false);
     this.handleSelectSaved = this.handleSelectSaved.bind(this);
     this.handleFade = this.handleFade.bind(this);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      localIP: 'http://192.168.0.113/',
+      localIP: 'add local IP',
       signUp: false,
       login: false,
+      designs: false,
+      ip: false,
       color: '#337475',
       selected: this.emptySelectedSet,
       fadeColorsSelected: [false, false, false, false],
@@ -72,7 +77,7 @@ class App extends React.Component {
       setting.colors = newColors;
       setting.fadeColors = newFadeColors;
       if (state.selected.includes(true)) {
-        axios.post(this.state.localIP, setting.colors);
+        this.postSetting(setting.colors);
       }
       return { setting, selected: this.generateColorData(this.n, false), fadeColorsSelected: [false, false, false, false] };
     })
@@ -120,11 +125,14 @@ class App extends React.Component {
 
   handleSelectSaved(e, design) {
     this.setState((state) => {
+      if (state.designs) {
+        state.designs = false;
+      }
       let setting = state.setting;
       setting.name = design.name;
       setting.colors = design.colors;
-      axios.post(this.localIP, setting.colors);
-      return { setting };
+      this.postSetting(setting.colors);
+      return { setting, designs: state.designs };
     })
   }
 
@@ -133,7 +141,7 @@ class App extends React.Component {
     this.setState((state) => {
       let setting = state.setting;
       setting.colors = newColors;
-      axios.post(this.localIP, setting.colors);
+      this.postSetting(setting.colors);
       return { setting };
     })
   }
@@ -145,8 +153,10 @@ class App extends React.Component {
       })
   }
 
-  connectLedPanel() {
-    // return (axios('http://192.168.0.215/currentsetting'))
+  postSetting(setting) {
+    if(this.state.localIP != 'add local IP' ){
+      axios.post(this.state.localIP, setting);
+    }
   }
 
   toggle(form) {
@@ -159,9 +169,12 @@ class App extends React.Component {
     e.preventDefault();
     axios.post(`/api/${form}`, data)
       .then(res => {
+        console.log(form)
         this.toggle(form);
-        this.setState({ username: res.data.username, localIP: res.data.localIP });
-        this.getDesigns(res.data.username);
+        if (res.data.username) {
+          this.setState({ username: res.data.username, localIP: res.data.localIP || 'add local IP' });
+          this.getDesigns(res.data.username);
+        }
       })
       .catch(err => {
         window.alert(err.response.data);
@@ -180,21 +193,33 @@ class App extends React.Component {
       })
   }
 
+  keyFunction(event) {
+    if (event.keyCode === 27) {
+      if (this.state.login) {
+        this.setState(() => { return { login: false } })
+      } else if (this.state.signUp) {
+        this.setState(() => { return { signUp: false } })
+      } else if (this.state.designs) {
+        this.setState(() => { return { designs: false } })
+      } else if (this.state.ip) {
+        this.setState(() => { return { ip: false } })
+      }
+    }
+  }
+
   componentDidMount() {
-    //   this.connectLedPanel()
-    //     .then(res => console.log(res))
-    //     .catch(err => console.log(err));
+    document.addEventListener("keydown", this.keyFunction, false);
     axios.get('/api/user')
       .then(user => {
         if (user.data.username) {
-          this.setState({ username: user.data.username })
+          this.setState({ username: user.data.username, localIP: user.data.localIP || 'add local IP' })
           this.getDesigns(user.data.username);
         } else {
           this.getDesigns('demo')
         }
       })
       .catch(() => {
-        this.setState({username: 'demo'});
+        this.setState({ username: 'demo' });
         this.getDesigns('demo')
       });
   }
@@ -203,9 +228,11 @@ class App extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <Win>
-          <Header user={this.state.username} toggle={this.toggle} logout={this.logout} />
+          <Header user={this.state.username} toggle={this.toggle} logout={this.logout} localIP={this.state.localIP} />
           <SignUp show={this.state.signUp} toggle={this.toggle} handleSubmit={this.handleSubmit} />
           <Login show={this.state.login} toggle={this.toggle} handleSubmit={this.handleSubmit} />
+          <IP show={this.state.ip} toggle={this.toggle} handleSubmit={this.handleSubmit} />
+          <Designs show={this.state.designs} toggle={this.toggle} designs={this.state.savedDesigns} handleSelectSaved={this.handleSelectSaved} />
           <Pad>
             <Content>
               <Column>

@@ -12,15 +12,14 @@ client.connect()
   .then(() => console.log('connected to postgres client'))
   .catch(err => console.log(err));
 
-const parseOptions = (options) => {
-  return Array.reduce(options, (parsed, value, key) => {})
-}
-
 module.exports = {
-  createUser: ({username, password}) => {
+  createUser: ({ username, password }) => {
     return (client.query(`INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id`, [username, password]));
   },
-  getUser: (data) => {
+  updateIP: ({ IP, id }) => {
+    return (client.query(`UPDATE users SET localIP = $1 WHERE id = $2`, [IP, id]));
+  },
+  getUser: data => {
     let key = Object.keys(data)[0];
     return (client.query(`SELECT * FROM users WHERE ${key} = $1`, [data[key]]));
   },
@@ -31,11 +30,11 @@ module.exports = {
   createNewSession: hash => {
     return (client.query(`INSERT INTO sessions (hash) VALUES ($1) RETURNING id`, [hash]));
   },
-  updateSession: ({userId, id}) => {
+  updateSession: ({ userId, id }) => {
     return (client.query(`UPDATE sessions SET user_id = $1 WHERE id = $2`, [userId, id]));
   },
   getUserPresets: user => {
-    return (client.query(`SELECT * FROM designs WHERE user_id = (SELECT id FROM users WHERE username = $1) LIMIT 6`, [user]));
+    return (client.query(`SELECT * FROM designs WHERE user_id = (SELECT id FROM users WHERE username = $1) ORDER BY id desc LIMIT 6`, [user]));
   },
   insertDesign: (user, data) => {
     return client.query(
