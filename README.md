@@ -4,6 +4,7 @@ Controlled is a user interface for controlling an LED light panel. It allows use
 ## Use
 
 To create gradients, select a gradient pattern from the 'fade options' on the left. Select your gradient colors by clicking on each square underneath 'Fade Colors', selecting a color from the color picker, and clicking 'Apply color.' Once all the color squares under 'Fade Colors' are selected, you can click on 'Apply Fade' to apply the gradient to the matrix. The 'balanced' checkbox will apply an exponential curve to the gradient, which can look more natural to the eye with certian colors. You can also edit the matrix directly by clicking on the boxes you want to change, finding your color, and clicking apply color. Save a pattern by typing the design name and clicking save. Open previously saved patterns by clicking a pattern on the 'saved' bar on the right.
+Signing in and adding a local IP address for your led panel will post the color data to the local IP as an array of color hex strings. For an example of hardware implementation see https://github.com/JoelWukusick/LED-panel.
 
 
 ## Local Installation
