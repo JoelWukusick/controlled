@@ -69,7 +69,7 @@ API.post('/login', (req, res) => {
           } else {
             res.body = { username: user.username, localIp: user.localIp };
             return db.updateSession({ userId: user.id, id: req.session.id })
-              .then(results => res.status(201).send({ username: user.username, localIp: user.localIp }));
+              .then(results => res.status(201).send({ username: user.username, localIP: user.localip }));
           }
         })
     })
