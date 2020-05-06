@@ -1,7 +1,7 @@
 const API = require('express').Router();
 const db = require('./../database/index.js');
 const auth = require('./auth.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 API.get('/', (req, res) => {
   res.status(200).send('connected to API');

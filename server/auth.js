@@ -1,6 +1,6 @@
 const db = require('../database/index.js');
 const randomBytes = require('random-bytes');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 getSession = (data) => {
   return db.getSession(data)
