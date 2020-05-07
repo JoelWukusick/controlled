@@ -1,5 +1,5 @@
 const express = require('express');
-const port = 3000;
+const port = 4000;
 const API = require('./api.js');
 const auth = require('./auth.js');
 const cors = require('cors');

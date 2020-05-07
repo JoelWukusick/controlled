@@ -154,8 +154,9 @@ class App extends React.Component {
   }
 
   postSetting(setting) {
+    console.log(this.state.localIP)
     if(this.state.localIP != 'add local IP' ){
-      axios.post(this.state.localIP, setting);
+      axios.post(`http://${this.state.localIP}`, setting);
     }
   }
 
