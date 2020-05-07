@@ -1,5 +1,5 @@
-# Controlled
-Controlled is a user interface for controlling an LED light panel. It allows users to create gradients or custom designs on a 12x12 matrix. Presently, it saves color data to a database common to all users and displays the most recently saved patterns. User login and hardware integration are still to come. See a deployed version at http://ec2-3-133-103-243.us-east-2.compute.amazonaws.com:4000.
+# ControlLED
+ControlLED is a user interface for controlling an LED light panel. It allows users to create gradients or custom designs on a 12x12 matrix, save their designs, and connect to a local LED panel. See a deployed version at http://ec2-3-133-103-243.us-east-2.compute.amazonaws.com:4000.
 
 ## Use
 
